@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Local tool settings
+.claude/settings.local.json
+
+# Mood-board references — third-party screenshots, not used by the site.
+# Kept locally, deliberately not published.
+assets/*.jpeg
+assets/*.jpg
+assets/*.png
+
+# Duplicate of assets/Kristina-Zakharchenko-CV.docx (the copy the site actually links to)
+/CV Kristina Zakharchenko _ Growth & Performance Marketing Manager.docx

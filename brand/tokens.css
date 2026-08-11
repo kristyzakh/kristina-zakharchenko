@@ -1,0 +1,92 @@
+/* ===========================================================================
+   Kristina Zakharchenko — brand tokens v1.0
+   Drop this in before your own stylesheet and style everything through the
+   custom properties. Full reference: brand-book.html
+   =========================================================================== */
+
+:root {
+  /* --- Core ------------------------------------------------------------- */
+  --kz-ink:        #16110F;  /* text, dark grounds, primary logo            */
+  --kz-paper:      #FAF7F2;  /* default page                               */
+  --kz-bubble:     #FF9BD8;  /* the signature — FILL ONLY, never small text */
+  --kz-magenta:    #C2246E;  /* the readable pink — links, accent text      */
+  --kz-butter:     #F4EDA0;  /* the spark — FILL ONLY                       */
+
+  /* --- Support ---------------------------------------------------------- */
+  --kz-graphite:   #57504D;  /* secondary text            7.4:1 on paper    */
+  --kz-smoke:      #79706B;  /* captions, labels          4.5:1 on paper    */
+  --kz-line:       #E2DACE;  /* rules, borders, grid                        */
+  --kz-paper-2:    #F3EDE4;  /* panels, table header fill                   */
+  --kz-pink-tint:  #FFE9F5;  /* soft highlight rows                         */
+  --kz-sun:        #EFD84C;  /* overprint, chart emphasis                   */
+  --kz-lilac:      #DCC1F7;  /* third accent — max one per layout           */
+  --kz-magenta-deep:#8E1750; /* pressed states, text on bubblegum           */
+
+  /* --- Dark surfaces ---------------------------------------------------- */
+  --kz-ink-bg:     #14100E;
+  --kz-ink-surface:#1E1815;
+  --kz-ink-line:   #332924;
+  --kz-ink-text:   #F6F1EA;
+  --kz-ink-text-2: #B8ADA4;
+
+  /* --- Data: categorical (assign in order, never cycle) ------------------ */
+  --kz-s1: #C2246E;  --kz-s2: #2F6BD8;  --kz-s3: #B8820A;
+  --kz-s4: #03917A;  --kz-s5: #7B4BD9;  --kz-s6: #D9482F;
+
+  /* --- Data: categorical on dark ---------------------------------------- */
+  --kz-s1-dark: #E14A86;  --kz-s2-dark: #5B93EE;  --kz-s3-dark: #BC8C15;
+  --kz-s4-dark: #12A88C;  --kz-s5-dark: #9578E0;  --kz-s6-dark: #DD5E39;
+
+  /* --- Data: sequential pink (low → high) -------------------------------- */
+  --kz-seq-1: #EE7EB0; --kz-seq-2: #DA5490; --kz-seq-3: #BE3576;
+  --kz-seq-4: #9C255C; --kz-seq-5: #741943;
+
+  /* --- Status (reserved — never used as a chart series) ------------------ */
+  --kz-ok:      #167A4E;   /* on track  */
+  --kz-watch:   #B07A00;   /* watch     */
+  --kz-risk:    #C2560F;   /* at risk   */
+  --kz-off:     #B3231F;   /* off track */
+
+  /* --- Type ------------------------------------------------------------- */
+  --kz-display: 'Unbounded', ui-sans-serif, system-ui, sans-serif;   /* titles, big numbers */
+  --kz-head:    'Inter Tight', ui-sans-serif, system-ui, sans-serif; /* headings — EN */
+  --kz-head-ua: 'Golos Text', ui-sans-serif, system-ui, sans-serif;  /* headings — UA */
+  --kz-body:    'Inter', ui-sans-serif, system-ui, sans-serif;       /* body — both  */
+  --kz-mono:    'IBM Plex Mono', ui-monospace, monospace;            /* data, labels */
+
+  /* --- Spacing scale (nothing in between) -------------------------------- */
+  --kz-1: 4px;  --kz-2: 8px;  --kz-3: 12px; --kz-4: 16px;
+  --kz-5: 24px; --kz-6: 32px; --kz-7: 48px; --kz-8: 72px;
+
+  /* --- Shape ------------------------------------------------------------- */
+  --kz-radius-card: 10px;
+  --kz-radius-chip: 6px;
+  --kz-hairline:    1px;
+}
+
+/* Ukrainian pages: swap the heading face, everything else stays. */
+:root:lang(uk) { --kz-head: var(--kz-head-ua); }
+
+/* Webfonts — these files ship in brand/fonts/ (Latin + Cyrillic subset). */
+@font-face { font-family:'Unbounded';    font-weight:100 900; font-display:swap;
+             src:url('fonts/unbounded.woff2')    format('woff2'); }
+@font-face { font-family:'Inter Tight';  font-weight:100 900; font-display:swap;
+             src:url('fonts/intertight.woff2')   format('woff2'); }
+@font-face { font-family:'Inter';        font-weight:100 900; font-display:swap;
+             src:url('fonts/inter.woff2')        format('woff2'); }
+@font-face { font-family:'Golos Text';   font-weight:400 900; font-display:swap;
+             src:url('fonts/golos.woff2')        format('woff2'); }
+@font-face { font-family:'IBM Plex Mono';font-weight:400;     font-display:swap;
+             src:url('fonts/plexmono-400.woff2') format('woff2'); }
+@font-face { font-family:'IBM Plex Mono';font-weight:500;     font-display:swap;
+             src:url('fonts/plexmono-500.woff2') format('woff2'); }
+
+/* --- Type roles, ready to use ------------------------------------------- */
+.kz-display { font-family:var(--kz-display); font-weight:700; letter-spacing:-.03em; line-height:1.0; }
+.kz-h1      { font-family:var(--kz-head); font-weight:700; font-size:28px; letter-spacing:-.015em; line-height:1.2; }
+.kz-h2      { font-family:var(--kz-head); font-weight:700; font-size:22px; letter-spacing:-.015em; line-height:1.25; }
+.kz-h3      { font-family:var(--kz-head); font-weight:600; font-size:18px; line-height:1.35; }
+.kz-body    { font-family:var(--kz-body); font-weight:400; font-size:16.5px; line-height:1.6; max-width:66ch; }
+.kz-label   { font-family:var(--kz-mono); font-weight:500; font-size:11.5px;
+              letter-spacing:.14em; text-transform:uppercase; color:var(--kz-smoke); }
+.kz-num     { font-variant-numeric:tabular-nums; }

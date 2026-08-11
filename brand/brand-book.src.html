@@ -1,0 +1,1531 @@
+<meta name="robots" content="noindex, nofollow">
+<title>KZ — Brand Book</title>
+<style>
+/*FONTS*/
+
+/* ============================================================ TOKENS */
+:root{
+  --ink:#16110F; --ink-2:#2B2320; --graphite:#57504D; --smoke:#79706B;
+  --paper:#FAF7F2; --paper-2:#F3EDE4; --paper-3:#EBE3D7; --line:#E2DACE;
+  --bubble:#FF9BD8; --pink-tint:#FFE9F5; --magenta:#C2246E; --magenta-deep:#8E1750;
+  --butter:#F4EDA0; --sun:#EFD84C; --lilac:#DCC1F7;
+
+  --bg:var(--paper); --surface:#FFFFFF; --surface-2:var(--paper-2);
+  --text:var(--ink); --text-2:var(--graphite); --text-3:var(--smoke);
+  --rule:var(--line); --accent:var(--magenta); --accent-fill:var(--bubble);
+
+  --s1:var(--magenta); --s2:#2F6BD8; --s3:#B8820A; --s4:#03917A; --s5:#7B4BD9; --s6:#D9482F;
+
+  --display:'Unbounded',ui-sans-serif,system-ui,sans-serif;
+  --head:'Inter Tight','Inter KZ',ui-sans-serif,system-ui,sans-serif;
+  --body:'Inter KZ',ui-sans-serif,system-ui,sans-serif;
+  --mono:'Plex Mono KZ',ui-monospace,'SFMono-Regular',monospace;
+  --ua:'Golos Text','Inter KZ',ui-sans-serif,sans-serif;
+
+  --wrap:1120px; --gut:clamp(20px,4vw,44px);
+}
+@media (prefers-color-scheme:dark){
+  :root:where(:not([data-theme="light"])){
+    --bg:#14100E; --surface:#1E1815; --surface-2:#251E1A;
+    --text:#F6F1EA; --text-2:#B8ADA4; --text-3:#8C8079;
+    --rule:#33292400; --rule:#332924; --accent:#F0669F; --accent-fill:var(--bubble);
+    --s1:#E14A86; --s2:#5B93EE; --s3:#BC8C15; --s4:#12A88C; --s5:#9578E0; --s6:#DD5E39;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14100E; --surface:#1E1815; --surface-2:#251E1A;
+  --text:#F6F1EA; --text-2:#B8ADA4; --text-3:#8C8079;
+  --rule:#332924; --accent:#F0669F; --accent-fill:var(--bubble);
+  --s1:#E14A86; --s2:#5B93EE; --s3:#BC8C15; --s4:#12A88C; --s5:#9578E0; --s6:#DD5E39;
+}
+:root[data-theme="light"]{
+  --bg:var(--paper); --surface:#FFFFFF; --surface-2:var(--paper-2);
+  --text:var(--ink); --text-2:var(--graphite); --text-3:var(--smoke);
+  --rule:var(--line); --accent:var(--magenta);
+  --s1:var(--magenta); --s2:#2F6BD8; --s3:#B8820A; --s4:#03917A; --s5:#7B4BD9; --s6:#D9482F;
+}
+
+/* ============================================================ BASE */
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);
+  font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+img,svg{max-width:100%;}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important;}}
+
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut);}
+.stack{display:flex;flex-direction:column;}
+.g16{gap:16px;} .g24{gap:24px;} .g32{gap:32px;} .g48{gap:48px;}
+
+h1,h2,h3,h4{margin:0;text-wrap:balance;}
+p{margin:0;}
+.lead{font-size:clamp(18px,2.1vw,22px);line-height:1.5;color:var(--text-2);max-width:60ch;}
+.body{max-width:66ch;color:var(--text-2);}
+.body strong{color:var(--text);font-weight:600;}
+.small{font-size:13.5px;line-height:1.55;color:var(--text-3);}
+
+.eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--text-3);}
+.h2{font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-height:1.02;
+  font-size:clamp(30px,4.4vw,52px);}
+.h3{font-family:var(--head);font-weight:700;font-size:clamp(19px,1.7vw,22px);letter-spacing:-.01em;line-height:1.25;}
+.h4{font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:-.005em;}
+.num{font-variant-numeric:tabular-nums;}
+
+/* ============================================================ CHROME */
+header.bar{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);}
+.bar-in{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px;}
+.bar-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.bar-logo svg{height:17px;width:auto;fill:var(--text);}
+.bar-logo svg path{fill:var(--text);}
+svg.dotmark g path:last-child{fill:var(--magenta);}
+svg.dotmark-dark g path:last-child{fill:var(--bubble);}
+.bar-logo span{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);}
+.bar-nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;}
+.bar-nav::-webkit-scrollbar{display:none;}
+.bar-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-3);text-decoration:none;padding:6px 9px;border-radius:4px;white-space:nowrap;}
+.bar-nav a:hover{color:var(--text);background:var(--surface-2);}
+.theme-btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  background:none;border:1px solid var(--rule);color:var(--text-2);border-radius:4px;
+  padding:6px 10px;cursor:pointer;}
+.theme-btn:hover{border-color:var(--text-3);color:var(--text);}
+
+/* ============================================================ SECTIONS */
+section{padding-block:clamp(56px,7vw,96px);border-top:1px solid var(--rule);}
+section:first-of-type{border-top:none;}
+.sec-head{display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:start;
+  margin-bottom:clamp(32px,4vw,52px);}
+.sec-no{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em;color:var(--accent);
+  padding-top:.55em;}
+.sec-head .body{margin-top:14px;}
+
+/* ============================================================ COVER */
+.cover{background:var(--ink);color:var(--paper);padding-block:clamp(48px,8vw,104px);
+  border-top:none;position:relative;overflow:hidden;}
+.cover .eyebrow{color:#9A8F88;}
+.cover-grid{display:grid;gap:clamp(32px,5vw,56px);}
+.cover-mark{width:clamp(150px,26vw,260px);}
+.cover-mark svg{width:100%;height:auto;display:block;}
+.cover h1{font-family:var(--display);font-weight:700;letter-spacing:-.045em;line-height:.94;
+  font-size:clamp(48px,10.5vw,132px);color:var(--paper);}
+.cover h1 em{font-style:normal;color:var(--bubble);}
+.cover-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:22px;
+  border-top:1px solid #3A312C;padding-top:22px;}
+.cover-meta dt{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:#9A8F88;margin-bottom:5px;}
+.cover-meta dd{margin:0;font-family:var(--head);font-weight:600;font-size:15px;color:var(--paper);}
+.rule-pace{height:3px;background:#3A312C;position:relative;}
+.rule-pace i{position:absolute;inset:0 auto 0 0;width:62%;background:var(--bubble);}
+.rule-pace u{position:absolute;top:-3px;width:1px;height:9px;background:#6B5E57;text-decoration:none;}
+
+/* ============================================================ CARDS / GRIDS */
+.grid{display:grid;gap:20px;}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
+.g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr));}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:22px;}
+.card .h4{margin-bottom:8px;}
+.plate{background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:clamp(20px,3vw,34px);}
+
+/* ============================================================ LOGO SPECIMENS */
+.spec{display:grid;gap:0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;}
+.spec-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));}
+.spec-cell{aspect-ratio:4/3;display:grid;place-items:center;padding:26px;position:relative;
+  border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.spec-cell:last-child{border-right:none;}
+.spec-row:last-child .spec-cell{border-bottom:none;}
+.spec-cell svg{width:100%;height:auto;max-height:100%;}
+.spec-cell .tag{position:absolute;left:12px;bottom:10px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;opacity:.55;}
+.on-paper{background:var(--paper);color:var(--ink);}
+.on-ink{background:var(--ink);color:var(--paper);}
+.on-pink{background:var(--bubble);color:var(--ink);}
+.on-butter{background:var(--butter);color:var(--ink);}
+.on-lilac{background:var(--lilac);color:var(--ink);}
+.on-photo{background:linear-gradient(135deg,#4A423E,#241E1B 60%,#3A2F2A);color:var(--paper);}
+
+/* clear space diagram */
+.clearspace{background:var(--paper);border:1px solid var(--line);border-radius:10px;
+  padding:clamp(28px,5vw,54px);display:grid;place-items:center;}
+.cs-box{position:relative;padding:var(--x);outline:1px dashed var(--magenta);--x:38px;}
+.cs-box svg{display:block;width:min(220px,42vw);height:auto;}
+.cs-box svg path{fill:var(--ink);}
+.cs-x{position:absolute;top:0;left:0;width:var(--x);height:var(--x);background:var(--magenta);
+  display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:#fff;}
+.cs-x.br{top:auto;left:auto;bottom:0;right:0;}
+
+.minsize{display:flex;align-items:flex-end;gap:28px;flex-wrap:wrap;}
+.minsize figure{margin:0;display:flex;flex-direction:column;gap:9px;align-items:flex-start;}
+.minsize svg path{fill:var(--text);}
+
+/* misuse */
+.dont{position:relative;}
+.dont::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top left,transparent calc(50% - .8px),#D9482F calc(50% - .8px),#D9482F calc(50% + .8px),transparent calc(50% + .8px));
+  opacity:.55;}
+.badge-ok,.badge-no{position:absolute;top:10px;left:12px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;z-index:2;}
+.badge-ok{background:#03917A;color:#fff;}
+.badge-no{background:#D9482F;color:#fff;}
+
+/* ============================================================ COLOR */
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
+.sw{border-radius:10px;overflow:hidden;border:1px solid var(--rule);background:var(--surface);}
+.sw .chip{height:104px;display:block;box-shadow:inset 0 0 0 1px rgba(128,120,115,.28);}
+.sw .meta{padding:12px 13px 14px;}
+.sw .nm{font-family:var(--head);font-weight:700;font-size:14.5px;letter-spacing:-.01em;}
+.sw .hx{font-family:var(--mono);font-size:12px;color:var(--text-2);margin-top:3px;}
+.sw .use{font-size:12.5px;color:var(--text-3);margin-top:7px;line-height:1.45;}
+.ramp{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--rule);}
+.ramp span{flex:1;height:56px;display:grid;place-items:end center;padding-bottom:5px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;}
+
+/* ============================================================ TABLES */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--surface);}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px;}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+thead th{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--text-3);background:var(--surface-2);white-space:nowrap;}
+tbody tr:last-child td{border-bottom:none;}
+td code,.code{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);
+  padding:1.5px 5px;border-radius:3px;color:var(--text);}
+.tick{color:#03917A;font-weight:700;} .cross{color:#D9482F;font-weight:700;}
+
+/* ============================================================ TYPE SPECIMENS */
+.typespec{border:1px solid var(--rule);border-radius:10px;overflow:hidden;}
+.ts-row{display:grid;grid-template-columns:130px 1fr;gap:0;border-bottom:1px solid var(--rule);}
+.ts-row:last-child{border-bottom:none;}
+.ts-key{padding:18px;background:var(--surface-2);border-right:1px solid var(--rule);}
+.ts-key .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--text-3);}
+.ts-key .v{font-family:var(--head);font-weight:600;font-size:13.5px;margin-top:5px;}
+.ts-val{padding:18px 22px;background:var(--surface);overflow:hidden;}
+.sample-display{font-family:var(--display);font-weight:700;letter-spacing:-.035em;font-size:clamp(26px,4vw,44px);line-height:1.02;}
+.sample-h{font-family:var(--head);font-weight:700;font-size:clamp(20px,2.4vw,27px);letter-spacing:-.015em;line-height:1.2;}
+.sample-sub{font-family:var(--head);font-weight:600;font-size:17px;color:var(--text-2);}
+.sample-body{font-size:15.5px;color:var(--text-2);max-width:60ch;}
+.sample-mono{font-family:var(--mono);font-size:13px;letter-spacing:.02em;}
+.ua{font-family:var(--ua);}
+.glyphline{font-family:var(--display);font-weight:700;font-size:clamp(22px,3vw,34px);letter-spacing:-.02em;
+  word-break:break-word;}
+
+/* ============================================================ MOCKUPS */
+.mock{background:var(--surface);border:1px solid var(--rule);border-radius:10px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(0,0,0,.05),0 12px 30px -18px rgba(0,0,0,.35);}
+.mock-cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--text-3);margin-top:10px;}
+figure{margin:0;}
+
+/* A4 sheets */
+.a4{aspect-ratio:1/1.414;background:var(--paper);color:var(--ink);display:flex;flex-direction:column;
+  container-type:inline-size;font-size:clamp(7px,1.55cqw,13px);}
+.a4 *{line-height:1.5;}
+.a4-cover{background:var(--ink);color:var(--paper);padding:9%;justify-content:space-between;}
+.a4-cover .big{font-family:var(--display);font-weight:700;font-size:3.1em;line-height:.98;letter-spacing:-.04em;}
+.a4-cover .big em{font-style:normal;color:var(--bubble);}
+.a4-mono{font-family:var(--mono);font-size:.78em;letter-spacing:.14em;text-transform:uppercase;opacity:.6;}
+.a4-inner{padding:8% 8.5%;gap:1.5em;}
+.a4-head{display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--line);padding-bottom:.9em;}
+.a4-head svg{height:1.15em;width:auto;}
+.a4-head svg path{fill:var(--ink);}
+.a4 h3{font-family:var(--display);font-weight:700;font-size:1.9em;letter-spacing:-.035em;line-height:1.04;}
+.a4 .sub{font-family:var(--head);font-weight:600;font-size:1em;color:var(--graphite);}
+.a4 p{font-size:.92em;color:var(--graphite);}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.7em;}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:.45em;padding:.75em .8em;}
+.kpi .k{font-family:var(--mono);font-size:.66em;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);}
+.kpi .v{font-family:var(--display);font-weight:700;font-size:1.55em;letter-spacing:-.03em;margin-top:.15em;
+  font-variant-numeric:tabular-nums;}
+.kpi .d{font-family:var(--mono);font-size:.7em;color:#03917A;margin-top:.2em;}
+.kpi .d.neg{color:#D9482F;}
+.kpi.hero{background:var(--bubble);border-color:var(--bubble);}
+.a4-foot{margin-top:auto;display:flex;justify-content:space-between;border-top:1px solid var(--line);
+  padding-top:.8em;font-family:var(--mono);font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);}
+.a4 table{min-width:0;font-size:.85em;}
+.a4 th,.a4 td{padding:.42em .55em;border-bottom:1px solid var(--line);}
+.a4 thead th{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.72em;letter-spacing:.08em;}
+.a4 tbody tr:nth-child(even){background:#fff;}
+
+/* 16:9 slides */
+.slide{aspect-ratio:16/9;container-type:inline-size;display:flex;flex-direction:column;
+  font-size:clamp(7px,2.1cqw,17px);padding:7%;background:var(--paper);color:var(--ink);}
+.slide.dark{background:var(--ink);color:var(--paper);}
+.slide.pink{background:var(--bubble);color:var(--ink);}
+.slide .t{font-family:var(--display);font-weight:700;font-size:2.5em;line-height:.98;letter-spacing:-.04em;}
+.slide .t em{font-style:normal;color:var(--bubble);}
+.slide .lbl{font-family:var(--mono);font-size:.62em;letter-spacing:.16em;text-transform:uppercase;opacity:.6;}
+.slide .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:.6em;letter-spacing:.12em;text-transform:uppercase;opacity:.55;}
+svg.slide-mark{height:1.15em;width:auto;flex:0 0 auto;}
+svg.banner-mark{height:2.6em;width:auto;flex:0 0 auto;}
+.slide-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.7em;flex:1;min-height:0;}
+.slide-cards > div{border-radius:.5em;padding:.8em;display:flex;flex-direction:column;gap:.3em;overflow:hidden;}
+.slide-cards b{font-family:var(--head);font-weight:700;font-size:.94em;line-height:1.25;}
+.slide-cards .cd{font-size:.72em;line-height:1.35;color:#57504D;}
+
+/* dashboard */
+.dash{background:#14100E;color:#F6F1EA;container-type:inline-size;font-size:clamp(7px,1.5cqw,12px);
+  padding:3.2%;display:flex;flex-direction:column;gap:1.1em;}
+.dash-top{display:flex;justify-content:space-between;align-items:center;}
+.dash-top svg{height:1.15em;width:auto;}
+.dash-top svg path{fill:#F6F1EA;}
+.dash-title{font-family:var(--head);font-weight:700;font-size:1.15em;letter-spacing:-.01em;}
+.dash-chips{display:flex;gap:.4em;}
+.dash-chip{font-family:var(--mono);font-size:.72em;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid #3A302B;border-radius:.3em;padding:.24em .55em;color:#B8ADA4;}
+.dash-chip.on{background:var(--bubble);border-color:var(--bubble);color:#16110F;}
+.dash-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:.7em;}
+.dtile{background:#1E1815;border:1px solid #2C2420;border-radius:.5em;padding:.75em .85em;
+  display:flex;flex-direction:column;gap:.25em;}
+.dtile .k{font-family:var(--mono);font-size:.7em;letter-spacing:.11em;text-transform:uppercase;color:#8C8079;}
+.dtile .v{font-family:var(--display);font-weight:700;font-size:1.7em;letter-spacing:-.035em;
+  font-variant-numeric:tabular-nums;}
+.dtile .d{font-family:var(--mono);font-size:.72em;display:flex;align-items:center;gap:.3em;}
+.up{color:#3FBF9A;} .down{color:#F0755E;}
+.dash-main{display:grid;grid-template-columns:1.55fr 1fr;gap:.7em;flex:1;}
+.dpanel{background:#1E1815;border:1px solid #2C2420;border-radius:.5em;padding:.85em .95em;
+  display:flex;flex-direction:column;gap:.6em;}
+.dpanel .ph{display:flex;justify-content:space-between;align-items:baseline;}
+.dpanel .pt{font-family:var(--head);font-weight:600;font-size:.95em;}
+.legend{display:flex;gap:.75em;flex-wrap:wrap;font-family:var(--mono);font-size:.7em;color:#B8ADA4;}
+.legend i{width:.62em;height:.62em;border-radius:.16em;display:inline-block;margin-right:.32em;
+  vertical-align:-.02em;}
+.dpanel > svg{width:100%;height:auto;display:block;flex:1;min-height:0;}
+
+/* spreadsheet */
+.sheet{background:#fff;color:var(--ink);container-type:inline-size;font-size:clamp(7px,1.35cqw,12px);}
+.sheet-bar{display:flex;align-items:center;gap:.7em;padding:.6em .8em;background:var(--paper-2);
+  border-bottom:1px solid var(--line);}
+.sheet-bar svg{height:1em;width:auto;}
+.sheet-bar svg path{fill:var(--ink);}
+.sheet-bar .nm{font-family:var(--head);font-weight:600;font-size:.95em;}
+.sheet-bar .tab{margin-left:auto;display:flex;gap:.3em;}
+.sheet-bar .tab span{font-family:var(--mono);font-size:.72em;letter-spacing:.06em;padding:.2em .5em;
+  border-radius:.25em;color:var(--smoke);}
+.sheet-bar .tab span.on{background:var(--bubble);color:var(--ink);}
+.sheet table{min-width:0;font-size:.92em;font-variant-numeric:tabular-nums;}
+.sheet th,.sheet td{padding:.4em .6em;border-bottom:1px solid #EDE7DE;border-right:1px solid #EDE7DE;}
+.sheet .colhead th{background:#F5F1EA;color:var(--smoke);font-family:var(--mono);font-size:.72em;
+  text-align:center;font-weight:500;letter-spacing:.04em;text-transform:none;}
+.sheet thead.brand th{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.74em;
+  letter-spacing:.09em;text-transform:uppercase;}
+.sheet td.lbl{font-family:var(--head);font-weight:600;}
+.sheet tbody tr:nth-child(even) td{background:#FCFAF6;}
+.sheet td.n{text-align:right;font-family:var(--mono);}
+.heat1{background:#FFE9F5 !important;} .heat2{background:#FFD0EA !important;}
+.heat3{background:#EE7EB0 !important;} .heat4{background:#DA5490 !important;color:#fff;}
+.heat5{background:#9C255C !important;color:#fff;}
+
+/* social */
+.ig{aspect-ratio:1/1;container-type:inline-size;font-size:clamp(7px,2.4cqw,18px);position:relative;
+  display:flex;flex-direction:column;padding:8%;overflow:hidden;}
+.ig.photo{background:linear-gradient(150deg,#5B5049 0%,#2A231F 55%,#443932 100%);color:var(--paper);}
+.ig .huge{font-family:var(--display);font-weight:700;font-size:2.6em;line-height:.92;letter-spacing:-.045em;
+  color:var(--bubble);}
+.ig .huge b{color:var(--paper);font-weight:700;}
+.ig .kick{font-family:var(--mono);font-size:.7em;letter-spacing:.16em;text-transform:uppercase;opacity:.75;}
+.ig .btm{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;
+  font-family:var(--mono);font-size:.68em;letter-spacing:.1em;text-transform:uppercase;opacity:.8;}
+.ig-card{background:var(--paper);color:var(--ink);}
+.tabs{display:flex;gap:.35em;margin-bottom:-1px;}
+.tabs span{font-family:var(--mono);font-size:.66em;letter-spacing:.12em;text-transform:uppercase;
+  padding:.5em .9em;border-radius:.55em .55em 0 0;background:var(--paper-2);color:var(--smoke);}
+.tabs span.on{background:var(--bubble);color:var(--ink);}
+.tabcard{background:#fff;border-radius:0 .7em .7em .7em;padding:1.4em;flex:1;display:flex;
+  flex-direction:column;justify-content:center;gap:.5em;border:1px solid var(--line);}
+.tabcard .big{font-family:var(--display);font-weight:700;font-size:2.2em;line-height:.98;letter-spacing:-.04em;}
+
+.banner{aspect-ratio:4/1;container-type:inline-size;font-size:clamp(6px,1.6cqw,15px);
+  background:var(--ink);color:var(--paper);display:flex;align-items:center;
+  justify-content:space-between;padding:0 5%;gap:4%;position:relative;overflow:hidden;}
+.banner .ttl{font-family:var(--display);font-weight:700;font-size:2.05em;line-height:1;letter-spacing:-.04em;}
+.banner .ttl em{font-style:normal;color:var(--bubble);}
+.banner .rgt{text-align:right;font-family:var(--mono);font-size:.78em;letter-spacing:.11em;
+  text-transform:uppercase;color:#9A8F88;line-height:1.9;}
+
+.avatars{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+.avatars figure{display:flex;flex-direction:column;gap:8px;align-items:center;}
+.avatars svg{width:84px;height:84px;border-radius:50%;}
+.avatars .sq svg{border-radius:14px;}
+
+/* email signature */
+.sig{background:#fff;color:var(--ink);padding:24px;display:flex;gap:18px;align-items:center;
+  border:1px solid var(--line);border-radius:10px;}
+.sig .mk{width:76px;flex-shrink:0;}
+.sig .mk svg{width:100%;height:auto;display:block;}
+.sig .bar{width:2px;align-self:stretch;background:var(--bubble);border-radius:2px;}
+.sig .nm{font-family:var(--head);font-weight:700;font-size:16px;letter-spacing:-.01em;}
+.sig .rl{font-family:var(--head);font-weight:500;font-size:13.5px;color:var(--graphite);}
+.sig .ct{font-family:var(--mono);font-size:11.5px;color:var(--smoke);margin-top:7px;line-height:1.7;}
+.sig .ct b{color:var(--magenta);font-weight:500;}
+
+/* business card */
+.bcard{aspect-ratio:85/55;container-type:inline-size;font-size:clamp(7px,3.1cqw,17px);
+  padding:10%;display:flex;flex-direction:column;justify-content:space-between;}
+.bcard.front{background:var(--ink);color:var(--paper);}
+.bcard.back{background:var(--bubble);color:var(--ink);}
+.bcard svg{height:1.5em;width:auto;}
+.bcard .nm{font-family:var(--display);font-weight:700;font-size:1.35em;letter-spacing:-.035em;line-height:1.05;}
+.bcard .mn{font-family:var(--mono);font-size:.66em;letter-spacing:.12em;text-transform:uppercase;opacity:.65;}
+
+/* ============================================================ TOV */
+.slider{display:grid;grid-template-columns:minmax(90px,auto) 1fr minmax(90px,auto);gap:14px;
+  align-items:center;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-3);}
+.slider .track{position:relative;height:2px;background:var(--rule);border-radius:2px;}
+.slider .track i{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;
+  background:var(--accent);transform:translate(-50%,-50%);}
+.slider .track b{position:absolute;top:-3px;width:1px;height:8px;background:var(--rule);}
+.ba{display:grid;gap:0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;}
+.ba-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--rule);}
+.ba-row:last-child{border-bottom:none;}
+.ba-cell{padding:16px 18px;font-size:14.5px;line-height:1.5;}
+.ba-cell:first-child{border-right:1px solid var(--rule);background:color-mix(in srgb,#D9482F 9%,var(--surface));}
+.ba-cell:last-child{background:color-mix(in srgb,#03917A 9%,var(--surface));}
+.ba-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  display:block;margin-bottom:7px;}
+.ba-cell:first-child .ba-tag{color:#B03A22;} .ba-cell:last-child .ba-tag{color:#03795F;}
+@media (max-width:640px){.ba-row{grid-template-columns:1fr;}
+  .ba-cell:first-child{border-right:none;border-bottom:1px solid var(--rule);}}
+
+/* ============================================================ RATIO BAR */
+.ratio{display:flex;height:56px;border-radius:8px;overflow:hidden;border:1px solid var(--rule);}
+.ratio div{display:grid;place-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;}
+
+/* checklist */
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:9px;}
+.checks li{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:14.5px;color:var(--text-2);}
+.checks li b{color:var(--text);font-weight:600;}
+.checks .m{font-family:var(--mono);font-weight:600;}
+
+pre{margin:0;overflow-x:auto;background:var(--surface-2);border:1px solid var(--rule);border-radius:10px;
+  padding:18px;font-family:var(--mono);font-size:12.5px;line-height:1.65;color:var(--text-2);}
+
+footer.end{background:var(--ink);color:var(--paper);padding-block:52px;}
+footer.end .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center;}
+footer.end svg{height:22px;width:auto;}
+footer.end .small{color:#9A8F88;}
+
+@media print{
+  header.bar,.theme-btn{display:none;}
+  body{background:#fff;}
+  section{break-inside:avoid;padding-block:28px;}
+}
+@media (max-width:720px){
+  .sec-head{grid-template-columns:1fr;gap:6px;}
+  .sec-no{padding-top:0;}
+  .ts-row{grid-template-columns:1fr;}
+  .ts-key{border-right:none;border-bottom:1px solid var(--rule);display:flex;gap:10px;align-items:baseline;padding:12px 16px;}
+  .ts-key .v{margin-top:0;}
+  .slide-cards{grid-template-columns:1fr;}
+  .slide-cards .cd{display:none;}
+  .banner{flex-direction:column;align-items:flex-start;justify-content:center;gap:.6em;padding:6% 5%;}
+  .sig{flex-wrap:wrap;}
+  .dash-main{grid-template-columns:1fr;}
+  .kpi-row,.dash-kpis{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="bar-logo" href="#top"><!--LOGO:kz-dot-ink.svg:dotmark--><span>Brand book</span></a>
+    <nav class="bar-nav">
+      <a href="#logo">01 Logo</a>
+      <a href="#color">02 Colour</a>
+      <a href="#type">03 Type</a>
+      <a href="#system">04 System</a>
+      <a href="#voice">05 Voice</a>
+      <a href="#apps">06 Applications</a>
+      <a href="#combine">07 Combining</a>
+      <a href="#assets">08 Assets</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" type="button">Theme</button>
+  </div>
+</header>
+
+<!-- ============================================================ COVER -->
+<section class="cover" id="top">
+  <div class="wrap cover-grid">
+    <div class="cover-mark"><!--LOGO:kz-dot-cream.svg--></div>
+    <div class="stack g24">
+      <p class="eyebrow">Kristina Zakharchenko · Performance marketing · v1.0 · 2026</p>
+      <h1>Brand<br>book<em>.</em></h1>
+      <p class="lead" style="color:#C9BFB8;max-width:52ch">One identity for every surface a client sees — social profiles, proposals, decks, dashboards and the monthly report. Two alphabets, one voice.</p>
+    </div>
+    <div class="rule-pace"><i></i><u style="left:22%"></u><u style="left:48%"></u><u style="left:74%"></u></div>
+    <dl class="cover-meta">
+      <div><dt>Owner</dt><dd>Kristina Zakharchenko</dd></div>
+      <div><dt>Discipline</dt><dd>Growth &amp; performance marketing</dd></div>
+      <div><dt>Languages</dt><dd>English · Українська</dd></div>
+      <div><dt>Contains</dt><dd>Logo · Colour · Type · Voice · Applications</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================================================ FOUNDATION -->
+<section id="foundation">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-no">00</div>
+      <div>
+        <h2 class="h2">The one-line brief</h2>
+        <p class="body">Everything in this book exists to make one impression repeatable: <strong>a marketer who shows you the numbers.</strong> The design is confident and warm; the data is never decorated. Pink carries the personality, ink carries the credibility, and the numbers are always allowed to be the loudest thing on the page.</p>
+      </div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card">
+        <h3 class="h4">Who it speaks to</h3>
+        <p class="small">E-commerce founders and marketing leads spending $15K–$100K+/month who want a person, not an agency layer. They read fast, they check numbers, and they have been oversold before.</p>
+      </div>
+      <div class="card">
+        <h3 class="h4">What it must feel like</h3>
+        <p class="small">Organised, current, human. The visual energy of a good creative studio; the discipline of a media buyer's spreadsheet. Never corporate-blue, never hype.</p>
+      </div>
+      <div class="card">
+        <h3 class="h4">The test for any surface</h3>
+        <p class="small">Cover the logo. Can a client still tell it's yours from the type, the pink and the way numbers are set? If not, the surface isn't finished.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 01 LOGO -->
+<section id="logo">
+  <div class="wrap stack g48">
+    <div class="sec-head">
+      <div class="sec-no">01</div>
+      <div>
+        <h2 class="h2">Logo</h2>
+        <p class="body">Two marks, one system. The primary logo is <strong>KZ.</strong> — your initials and a full stop, redrawn from the site header in the brand's own display face. The full stop is the whole idea: it's the punctuation of someone who finishes the sentence, and it carries the accent colour so the brand shows up even at 20 px. Where the dot can't survive — avatars, favicons, square stamps — a <strong>compact ligature</strong> takes over.</p>
+      </div>
+    </div>
+
+    <!-- primary mark -->
+    <div class="stack g16">
+      <p class="eyebrow">Primary mark</p>
+      <div class="spec">
+        <div class="spec-row">
+          <div class="spec-cell on-paper" style="aspect-ratio:16/6"><span style="width:76%"><!--LOGO:kz-dot-ink.svg--></span><span class="tag">Ink + magenta dot · primary</span></div>
+          <div class="spec-cell on-ink" style="aspect-ratio:16/6"><span style="width:76%"><!--LOGO:kz-dot-cream.svg--></span><span class="tag">Cream + bubblegum dot</span></div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-cell on-pink" style="aspect-ratio:16/6"><span style="width:76%"><!--LOGO:kz-dot-ink-solid.svg--></span><span class="tag">One colour · on bubblegum</span></div>
+          <div class="spec-cell on-paper" style="aspect-ratio:16/6"><span style="width:76%"><!--LOGO:kz-dot-magenta.svg--></span><span class="tag">One colour · magenta</span></div>
+        </div>
+      </div>
+      <div class="grid g2">
+        <p class="small"><strong>The dot changes colour, the letters don’t.</strong> On light grounds the dot is magenta; on ink and on imagery it is bubblegum. Everywhere the logo must be a single colour — a fax-grade PDF, an engraved stamp, a client’s partner wall — use the one-colour version and let the dot go with the letters. Never the other way around: ink letters with a yellow dot, or pink letters with an ink dot, are both off-brand.</p>
+        <p class="small"><strong>Spacing is fixed.</strong> The gap between Z and the full stop is set in the files at 16% of the cap height. It is wider than a typographic full stop on purpose — the dot has to read as a separate element, not as punctuation that got stuck to the Z. Don’t retype the logo; use the file.</p>
+      </div>
+    </div>
+
+    <!-- construction -->
+    <div class="grid g2">
+      <div class="stack g16">
+        <p class="eyebrow">Construction</p>
+        <div class="clearspace">
+          <div class="cs-box">
+            <span class="cs-x">x</span><span class="cs-x br">x</span>
+            <!--LOGO:kz-dot-ink.svg:dotmark-->
+          </div>
+        </div>
+        <p class="small"><strong>Clear space.</strong> Keep a margin of <span class="code">x</span> — half the height of the monogram — on all four sides. Nothing enters it: no text, no rules, no photo edges, no other logos.</p>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Minimum sizes — and which mark to use</p>
+        <div class="plate stack g24">
+          <div class="minsize">
+            <figure><span style="display:block;width:150px"><!--LOGO:kz-dot-ink.svg:dotmark--></span><figcaption class="small">KZ. · 20 px and up</figcaption></figure>
+            <figure><span style="display:block;width:64px"><!--LOGO:kz-monogram-ink.svg--></span><figcaption class="small">Ligature · 24 px and up</figcaption></figure>
+            <figure><span style="display:block;width:22px"><!--LOGO:kz-monogram-small-size-ink.svg--></span><figcaption class="small">Small-size cut · under 24 px</figcaption></figure>
+          </div>
+          <p class="small"><strong>KZ.</strong> holds down to about 20 px; below that the dot starts to disappear and you switch to the ligature. The ligature itself closes into a blob below 24 px, so anything smaller — favicons, app icons, table headers, under 6 mm in print — takes the <strong>small-size cut</strong>: same letters, positive spacing.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- versions -->
+    <div class="stack g16">
+      <p class="eyebrow">The compact mark — a KZ ligature</p>
+      <div class="spec">
+        <div class="spec-row">
+          <div class="spec-cell on-paper"><span style="width:78%"><!--LOGO:kz-monogram-ink.svg--></span><span class="tag">Ink on paper · primary</span></div>
+          <div class="spec-cell on-ink"><span style="width:78%"><!--LOGO:kz-monogram-cream.svg--></span><span class="tag">Cream on ink</span></div>
+          <div class="spec-cell on-pink"><span style="width:78%"><!--LOGO:kz-monogram-ink.svg--></span><span class="tag">Ink on bubblegum</span></div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-cell on-butter"><span style="width:78%"><!--LOGO:kz-monogram-ink.svg--></span><span class="tag">Ink on butter</span></div>
+          <div class="spec-cell on-paper"><span style="width:78%"><!--LOGO:kz-monogram-magenta.svg--></span><span class="tag">Magenta on paper</span></div>
+          <div class="spec-cell on-photo"><span style="width:78%"><!--LOGO:kz-monogram-cream.svg--></span><span class="tag">Cream on imagery</span></div>
+        </div>
+      </div>
+      <p class="small">Where a full stop would be lost or a square needs filling, the K and Z are tracked until the K's leg and the Z's shoulder share one diagonal. It reads as a single shape at a glance and as two letters on the second look — right for avatars, app tiles, stamps and anything set very small. Six approved colourways; on photography it is always cream, and always in an area dark and quiet enough to hold it. If it isn't, darken the area rather than outlining the mark.</p>
+    </div>
+
+    <!-- overprint -->
+    <div class="grid g2">
+      <div class="stack g16">
+        <p class="eyebrow">The overprint version</p>
+        <div class="spec"><div class="spec-row"><div class="spec-cell on-paper" style="aspect-ratio:16/7"><span style="width:70%"><!--LOGO:kz-monogram-duotone.svg--></span></div></div></div>
+        <p class="small">The K in bubblegum, the Z in sun, and the <strong>intersection in magenta</strong> — as if two inks were printed over each other. It's the brand's one piece of theatre: covers, launch posts, the first slide. Never inside a report, never below 60 px, never re-coloured. The overlap is a real filled shape in the file, not a blend mode, so it survives PDF export and print.</p>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Containers</p>
+        <div class="spec">
+          <div class="spec-row">
+            <div class="spec-cell on-paper"><span style="width:80%"><!--LOGO:kz-badge-ink.svg--></span><span class="tag">Rounded badge</span></div>
+            <div class="spec-cell on-paper"><span style="width:80%"><!--LOGO:kz-badge-pink.svg--></span><span class="tag">Bubblegum badge</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-cell on-paper"><span style="width:58%"><!--LOGO:kz-avatar-circle-ink.svg--></span><span class="tag">Avatar · ink</span></div>
+            <div class="spec-cell on-paper"><span style="width:58%"><!--LOGO:kz-avatar-circle-pink.svg--></span><span class="tag">Avatar · bubblegum</span></div>
+          </div>
+        </div>
+        <p class="small">Circles for profile pictures (LinkedIn, Instagram, Google, WhatsApp). Rounded squares for app tiles and document stamps. Ink is the default; bubblegum is for places where a wall of small dark avatars needs to be cut through.</p>
+      </div>
+    </div>
+
+    <!-- lockups -->
+    <div class="stack g16">
+      <p class="eyebrow">Lockups — mark plus name</p>
+      <div class="spec">
+        <div class="spec-row">
+          <div class="spec-cell on-paper" style="aspect-ratio:16/6"><span style="width:88%"><!--LOGO:lockup-horizontal-ink.svg--></span><span class="tag">Horizontal · primary lockup</span></div>
+          <div class="spec-cell on-paper" style="aspect-ratio:16/6"><span style="width:62%"><!--LOGO:lockup-vertical-ink.svg--></span><span class="tag">Vertical · centred</span></div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-cell on-ink" style="aspect-ratio:16/6"><span style="width:88%"><!--LOGO:lockup-horizontal-cream.svg--></span><span class="tag">Horizontal on ink</span></div>
+          <div class="spec-cell on-paper" style="aspect-ratio:16/6"><span style="width:88%"><!--LOGO:lockup-horizontal-accent.svg--></span><span class="tag">Magenta mark · covers only</span></div>
+        </div>
+      </div>
+      <div class="grid g2">
+        <p class="small"><strong>Horizontal</strong> is the working lockup: document headers, letterheads, deck footers, invoices, email signature. <strong>Vertical</strong> is for square and centred spaces: title slides, tote-bag logic, a proposal cover. Never rebuild either by hand — the spacing between mark, rule and name is fixed in the files.</p>
+        <p class="small">The name is set in <strong>Unbounded SemiBold</strong>, the role line in <strong>Inter Tight Medium</strong> with wide tracking. In Ukrainian the same lockup takes «КРИСТІНА ЗАХАРЧЕНКО» — set it from the file provided, don't retype it in a different face.</p>
+      </div>
+    </div>
+
+    <!-- wordmark & signature -->
+    <div class="grid g2">
+      <div class="stack g16">
+        <p class="eyebrow">Wordmark</p>
+        <div class="spec"><div class="spec-row"><div class="spec-cell on-paper" style="aspect-ratio:16/7"><span style="width:82%"><!--LOGO:wordmark-stacked-ink.svg--></span></div></div></div>
+        <p class="small">Stacked wordmark, no mark. Use where the monogram would be redundant — an About page header, a CV masthead, the back of a card.</p>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Signature line</p>
+        <div class="spec"><div class="spec-row"><div class="spec-cell on-paper" style="aspect-ratio:16/7"><span style="width:88%"><!--LOGO:signature-line-ink.svg--></span></div></div></div>
+        <p class="small">The line from the site footer, kept as an official asset: name in Inter Tight SemiBold, role in Medium at 62% opacity, joined by an em dash. It is the smallest complete statement of the brand — use it in email footers, PDF page furniture and document properties.</p>
+      </div>
+    </div>
+
+    <!-- misuse -->
+    <div class="stack g16">
+      <p class="eyebrow">Misuse — none of these, ever</p>
+      <div class="spec">
+        <div class="spec-row">
+          <div class="spec-cell on-paper dont"><span class="badge-no">No</span><span style="width:80%;transform:scaleX(1.35);display:block"><!--LOGO:kz-monogram-ink.svg--></span><span class="tag">Stretched or condensed</span></div>
+          <div class="spec-cell on-paper dont"><span class="badge-no">No</span><span style="width:70%;display:block;transform:rotate(-13deg)"><!--LOGO:kz-monogram-ink.svg--></span><span class="tag">Rotated or tilted</span></div>
+          <div class="spec-cell on-butter dont"><span class="badge-no">No</span><span style="width:78%"><!--LOGO:kz-monogram-magenta.svg--></span><span class="tag">Pink on yellow</span></div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-cell on-paper dont"><span class="badge-no">No</span><span style="width:78%;display:block;filter:drop-shadow(4px 6px 3px rgba(0,0,0,.45))"><!--LOGO:kz-monogram-ink.svg--></span><span class="tag">Shadows or effects</span></div>
+          <div class="spec-cell on-paper dont"><span class="badge-no">No</span><span style="width:78%;display:block;opacity:.32"><!--LOGO:kz-monogram-ink.svg--></span><span class="tag">Faded as a watermark</span></div>
+          <div class="spec-cell on-photo dont"><span class="badge-no">No</span><span style="width:78%"><!--LOGO:kz-monogram-magenta.svg--></span><span class="tag">Low contrast on imagery</span></div>
+        </div>
+      </div>
+      <p class="small">Also off-limits: re-typesetting KZ in another font, adding a tagline inside the mark, outlining it, boxing it in a colour outside the palette, or putting the overprint version on any background other than paper or ink. And three rules for the dot specifically — <strong>never drop it</strong> from the primary mark, never make it yellow or lilac, and never make it a different shape (a square, a heart, an asterisk). If the dot doesn't fit, that's the signal to switch to the ligature.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 02 COLOUR -->
+<section id="color">
+  <div class="wrap stack g48">
+    <div class="sec-head">
+      <div class="sec-no">02</div>
+      <div>
+        <h2 class="h2">Colour</h2>
+        <p class="body">Two grounds, one accent, one spark. <strong>Ink and paper</strong> do almost all the work; <strong>bubblegum pink</strong> is the signature; <strong>butter yellow</strong> is the second voice that keeps the pink from reading as sweet. Everything else on this page is either a tint of those or a data colour that had to earn its place.</p>
+      </div>
+    </div>
+
+    <div class="stack g16">
+      <p class="eyebrow">Core — these five are the brand</p>
+      <div class="swatches">
+        <div class="sw"><span class="chip" style="background:#16110F"></span><div class="meta">
+          <div class="nm">Ink</div><div class="hx">#16110F</div>
+          <div class="use">All body text, dark grounds, the primary logo. A warm near-black — never use pure #000.</div></div></div>
+        <div class="sw"><span class="chip" style="background:#FAF7F2"></span><div class="meta">
+          <div class="nm">Paper</div><div class="hx">#FAF7F2</div>
+          <div class="use">The default page. Warm off-white; light grounds in decks, docs and reports.</div></div></div>
+        <div class="sw"><span class="chip" style="background:#FF9BD8"></span><div class="meta">
+          <div class="nm">Bubblegum</div><div class="hx">#FF9BD8</div>
+          <div class="use">The signature. Fills, highlights, one KPI tile, big type on dark. <strong>Never small text on light.</strong></div></div></div>
+        <div class="sw"><span class="chip" style="background:#C2246E"></span><div class="meta">
+          <div class="nm">Magenta</div><div class="hx">#C2246E</div>
+          <div class="use">The readable pink: links, accent text, chart series 1, section numbers. 5.2:1 on paper.</div></div></div>
+        <div class="sw"><span class="chip" style="background:#F4EDA0"></span><div class="meta">
+          <div class="nm">Butter</div><div class="hx">#F4EDA0</div>
+          <div class="use">The spark. Highlight blocks, one panel per layout, sticky-note moments. Fill only.</div></div></div>
+      </div>
+    </div>
+
+    <div class="stack g16">
+      <p class="eyebrow">Support — structure, tints and the third accent</p>
+      <div class="swatches">
+        <div class="sw"><span class="chip" style="background:#57504D;height:74px"></span><div class="meta"><div class="nm">Graphite</div><div class="hx">#57504D</div><div class="use">Secondary text. 7.4:1</div></div></div>
+        <div class="sw"><span class="chip" style="background:#79706B;height:74px"></span><div class="meta"><div class="nm">Smoke</div><div class="hx">#79706B</div><div class="use">Captions, labels. 4.5:1</div></div></div>
+        <div class="sw"><span class="chip" style="background:#E2DACE;height:74px"></span><div class="meta"><div class="nm">Line</div><div class="hx">#E2DACE</div><div class="use">Rules, borders, table grid</div></div></div>
+        <div class="sw"><span class="chip" style="background:#F3EDE4;height:74px"></span><div class="meta"><div class="nm">Paper 2</div><div class="hx">#F3EDE4</div><div class="use">Panels, table header fill</div></div></div>
+        <div class="sw"><span class="chip" style="background:#FFE9F5;height:74px"></span><div class="meta"><div class="nm">Pink tint</div><div class="hx">#FFE9F5</div><div class="use">Soft highlight rows</div></div></div>
+        <div class="sw"><span class="chip" style="background:#EFD84C;height:74px"></span><div class="meta"><div class="nm">Sun</div><div class="hx">#EFD84C</div><div class="use">Overprint, chart emphasis</div></div></div>
+        <div class="sw"><span class="chip" style="background:#DCC1F7;height:74px"></span><div class="meta"><div class="nm">Lilac</div><div class="hx">#DCC1F7</div><div class="use">Third accent — max one per layout</div></div></div>
+        <div class="sw"><span class="chip" style="background:#8E1750;height:74px"></span><div class="meta"><div class="nm">Magenta deep</div><div class="hx">#8E1750</div><div class="use">Pressed states, dark-on-pink text</div></div></div>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="stack g16">
+        <p class="eyebrow">The rule that keeps it professional</p>
+        <div class="ratio">
+          <div style="flex:62;background:#FAF7F2;color:#16110F">62% ground</div>
+          <div style="flex:26;background:#16110F;color:#FAF7F2">26% ink</div>
+          <div style="flex:9;background:#FF9BD8;color:#16110F">9%</div>
+          <div style="flex:3;background:#F4EDA0;color:#16110F">3%</div>
+        </div>
+        <p class="small">Roughly <strong>62 / 26 / 9 / 3</strong>: ground, ink, pink, yellow. Invert the first two for dark surfaces (decks, dashboards, covers) but keep the accent shares. When a layout starts to feel cheap, the cause is almost always pink over 15%.</p>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Contrast — measured, not guessed</p>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Pair</th><th>Ratio</th><th>Verdict</th></tr></thead>
+          <tbody class="num">
+            <tr><td>Ink on Paper</td><td>17.5 : 1</td><td><span class="tick">✓</span> everything</td></tr>
+            <tr><td>Paper on Ink</td><td>17.5 : 1</td><td><span class="tick">✓</span> everything</td></tr>
+            <tr><td>Ink on Bubblegum</td><td>9.8 : 1</td><td><span class="tick">✓</span> everything</td></tr>
+            <tr><td>Ink on Butter</td><td>15.6 : 1</td><td><span class="tick">✓</span> everything</td></tr>
+            <tr><td>Magenta on Paper</td><td>5.2 : 1</td><td><span class="tick">✓</span> body text</td></tr>
+            <tr><td>Graphite on Paper</td><td>7.4 : 1</td><td><span class="tick">✓</span> body text</td></tr>
+            <tr><td>Smoke on Paper</td><td>4.5 : 1</td><td><span class="tick">✓</span> ≥14 px only</td></tr>
+            <tr><td>Magenta on Bubblegum</td><td>2.9 : 1</td><td><span class="cross">✗</span> no text</td></tr>
+            <tr><td>Bubblegum on Paper</td><td>1.8 : 1</td><td><span class="cross">✗</span> fill only</td></tr>
+            <tr><td>Butter on Paper</td><td>1.1 : 1</td><td><span class="cross">✗</span> fill only</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small"><strong>The short version:</strong> pink and yellow are surfaces you put ink on. They are never the ink themselves, except when pink is set very large on ink — display size, 40 px and up.</p>
+      </div>
+    </div>
+
+    <div class="stack g16">
+      <p class="eyebrow">Data colours — for charts, dashboards and conditional formatting</p>
+      <div class="grid g2">
+        <div class="stack g16">
+          <p class="small"><strong>Categorical.</strong> Assign in this order and never cycle. Magenta leads so the brand shows up in the first series; the rest were chosen so that every neighbouring pair stays distinguishable for red/green and blue/yellow colour-blind readers, and each clears 3:1 against the surface.</p>
+          <div class="ramp">
+            <span style="background:#C2246E;color:#fff">01</span><span style="background:#2F6BD8;color:#fff">02</span>
+            <span style="background:#B8820A;color:#fff">03</span><span style="background:#03917A;color:#fff">04</span>
+            <span style="background:#7B4BD9;color:#fff">05</span><span style="background:#D9482F;color:#fff">06</span>
+          </div>
+          <p class="small num" style="font-family:var(--mono);font-size:11.5px">#C2246E · #2F6BD8 · #B8820A · #03917A · #7B4BD9 · #D9482F</p>
+          <p class="small">Dark dashboards use the same six hues re-stepped for a dark ground:
+          <span class="code">#E14A86 · #5B93EE · #BC8C15 · #12A88C · #9578E0 · #DD5E39</span>.</p>
+        </div>
+        <div class="stack g16">
+          <p class="small"><strong>Sequential (pink).</strong> For heat maps, conditional formatting in Sheets, and cohort tables. Light means low, dark means high — five steps, each visibly separated.</p>
+          <div class="ramp">
+            <span style="background:#EE7EB0">1</span><span style="background:#DA5490;color:#fff">2</span>
+            <span style="background:#BE3576;color:#fff">3</span><span style="background:#9C255C;color:#fff">4</span>
+            <span style="background:#741943;color:#fff">5</span>
+          </div>
+          <p class="small"><strong>Status.</strong> Reserved — these four never appear as a chart series or a decorative fill. Always paired with a word or icon, never colour alone.</p>
+          <div class="ramp">
+            <span style="background:#167A4E;color:#fff">On track</span><span style="background:#B07A00;color:#fff">Watch</span>
+            <span style="background:#C2560F;color:#fff">At risk</span><span style="background:#B3231F;color:#fff">Off track</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 03 TYPE -->
+<section id="type">
+  <div class="wrap stack g48">
+    <div class="sec-head">
+      <div class="sec-no">03</div>
+      <div>
+        <h2 class="h2">Typography</h2>
+        <p class="body">Four roles, four faces, and a checked answer for both alphabets. Every face here has been verified to contain the full Ukrainian set — <strong>ґ Ґ, є Є, і І, ї Ї</strong> and the hryvnia sign ₴ — so a Ukrainian document never silently falls back to Times New Roman halfway through a headline.</p>
+      </div>
+    </div>
+
+    <!-- role table -->
+    <div class="stack g16">
+      <p class="eyebrow">The system — role by role, language by language</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Role</th><th>English</th><th>Українська</th><th>Setting</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Title / display</strong><br><span class="small">Covers, hero lines, big numbers, the logo</span></td>
+            <td><strong>Unbounded</strong> Bold 700</td><td><strong>Unbounded</strong> Bold 700</td>
+            <td class="small">Tracking −3%, line-height 0.98–1.04. Max 5 words. Sentence case or ALL CAPS, never Title Case.</td></tr>
+          <tr><td><strong>Heading</strong><br><span class="small">H1–H3 in docs, slide headings, section titles</span></td>
+            <td><strong>Inter Tight</strong> Bold 700</td><td><strong>Golos Text</strong> Bold 700</td>
+            <td class="small">Tracking −1.5%, line-height 1.2. Sentence case.</td></tr>
+          <tr><td><strong>Subheading</strong><br><span class="small">Deck sub-lines, table group headers, lead-ins</span></td>
+            <td><strong>Inter Tight</strong> SemiBold 600</td><td><strong>Golos Text</strong> SemiBold 600</td>
+            <td class="small">Tracking 0, line-height 1.35. Graphite, not ink.</td></tr>
+          <tr><td><strong>Body</strong><br><span class="small">Paragraphs, proposals, captions, emails</span></td>
+            <td><strong>Inter</strong> Regular 400 / Medium 500</td><td><strong>Inter</strong> Regular 400 / Medium 500</td>
+            <td class="small">16–17 px, line-height 1.6, measure 60–70 characters. One face, both alphabets.</td></tr>
+          <tr><td><strong>Data &amp; labels</strong><br><span class="small">Eyebrows, KPI labels, table headers, chart axes</span></td>
+            <td><strong>IBM Plex Mono</strong> Medium 500</td><td><strong>IBM Plex Mono</strong> Medium 500</td>
+            <td class="small">11–13 px, UPPERCASE, tracking +11–15%. Always tabular figures.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small"><strong>Why headings swap language.</strong> Inter Tight is drawn tight and narrow — excellent for English, but Ukrainian runs 10–15% longer and its Cyrillic gets cramped at heading weight. Golos Text is a Cyrillic-first grotesque with the same neo-grotesque skeleton, so a Ukrainian deck reads as the same brand without looking squeezed. Title, body and data stay identical across both languages, so 80% of the system never changes.</p>
+    </div>
+
+    <!-- specimens EN -->
+    <div class="stack g16">
+      <p class="eyebrow">Specimen — English</p>
+      <div class="typespec">
+        <div class="ts-row"><div class="ts-key"><div class="k">Title</div><div class="v">Unbounded 700</div></div>
+          <div class="ts-val"><div class="sample-display">Ad spend into paying customers.</div></div></div>
+        <div class="ts-row"><div class="ts-key"><div class="k">Heading</div><div class="v">Inter Tight 700</div></div>
+          <div class="ts-val"><div class="sample-h">What changed in the account this month</div></div></div>
+        <div class="ts-row"><div class="ts-key"><div class="k">Subheading</div><div class="v">Inter Tight 600</div></div>
+          <div class="ts-val"><div class="sample-sub">Meta · prospecting · weeks 5–8</div></div></div>
+        <div class="ts-row"><div class="ts-key"><div class="k">Body</div><div class="v">Inter 400</div></div>
+          <div class="ts-val"><p class="sample-body">I moved 60% of prospecting budget into the three creatives that held a 2.1× ROAS at scale, and cut the two audiences that had been buying the same customers twice. Blended CPA fell from $41 to $33 over four weeks.</p></div></div>
+        <div class="ts-row"><div class="ts-key"><div class="k">Data</div><div class="v">Plex Mono 500</div></div>
+          <div class="ts-val"><div class="sample-mono num">SPEND $84,120 · ROAS 4.8 · CPA $33 · AOV $112 · 4 MARKETS</div></div></div>
+      </div>
+    </div>
+
+    <!-- specimens UA -->
+    <div class="stack g16">
+      <p class="eyebrow">Specimen — Українська</p>
+      <div class="typespec">
+        <div class="ts-row"><div class="ts-key"><div class="k">Титул</div><div class="v">Unbounded 700</div></div>
+          <div class="ts-val"><div class="sample-display">Бюджет у клієнтів.</div></div></div>
+        <div class="ts-row"><div class="ts-key"><div class="k">Заголовок</div><div class="v">Golos Text 700</div></div>
+          <div class="ts-val"><div class="sample-h ua">Що змінилося в акаунті цього місяця</div></div></div>
+        <div class="ts-row"><div class="ts-key"><div class="k">Підзаголовок</div><div class="v">Golos Text 600</div></div>
+          <div class="ts-val"><div class="sample-sub ua">Meta · залучення · тижні 5–8</div></div></div>
+        <div class="ts-row"><div class="ts-key"><div class="k">Основний текст</div><div class="v">Inter 400</div></div>
+          <div class="ts-val"><p class="sample-body">Я перевела 60% бюджету на три креативи, які втримали ROAS 2,1× на масштабі, і вимкнула дві аудиторії, що купували тих самих клієнтів двічі. Загальний CPA впав із 41 $ до 33 $ за чотири тижні.</p></div></div>
+        <div class="ts-row"><div class="ts-key"><div class="k">Дані</div><div class="v">Plex Mono 500</div></div>
+          <div class="ts-val"><div class="sample-mono num">ВИТРАТИ 84 120 ₴ · ROAS 4,8 · CPA 33 $ · 4 РИНКИ</div></div></div>
+      </div>
+      <div class="plate">
+        <div class="glyphline">ҐґЄєІіЇї № ₴ 0123456789</div>
+        <p class="small" style="margin-top:12px">The four letters that break most fonts, plus the number sign and the hryvnia. If any of these render in a different style than the rest of the line, the font has fallen back — stop and fix the font, don't ship the document.</p>
+      </div>
+    </div>
+
+    <!-- scale -->
+    <div class="grid g2">
+      <div class="stack g16">
+        <p class="eyebrow">Type scale</p>
+        <div class="tbl-wrap"><table style="min-width:0">
+          <thead><tr><th>Step</th><th>Web</th><th>Doc / deck</th><th>Face</th></tr></thead>
+          <tbody class="num">
+            <tr><td>Display</td><td>60–92 px</td><td>44–60 pt</td><td>Unbounded 700</td></tr>
+            <tr><td>Title</td><td>36–52 px</td><td>28–36 pt</td><td>Unbounded 700</td></tr>
+            <tr><td>H1</td><td>28 px</td><td>22 pt</td><td>Inter Tight 700</td></tr>
+            <tr><td>H2</td><td>22 px</td><td>17 pt</td><td>Inter Tight 700</td></tr>
+            <tr><td>H3</td><td>18 px</td><td>14 pt</td><td>Inter Tight 600</td></tr>
+            <tr><td>Body</td><td>16.5 px</td><td>11 pt</td><td>Inter 400</td></tr>
+            <tr><td>Small</td><td>13.5 px</td><td>9.5 pt</td><td>Inter 400</td></tr>
+            <tr><td>Label</td><td>11.5 px</td><td>8 pt</td><td>Plex Mono 500</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Where to get them &amp; what to do when you can't</p>
+        <div class="tbl-wrap"><table style="min-width:0">
+          <thead><tr><th>Tool</th><th>Status</th><th>Do this</th></tr></thead>
+          <tbody>
+            <tr><td>Google Docs / Slides / Sheets</td><td><span class="tick">✓</span></td><td class="small">More fonts → add Unbounded, Inter Tight, Inter, Golos Text, IBM Plex Mono</td></tr>
+            <tr><td>Figma</td><td><span class="tick">✓</span></td><td class="small">All five are on Google Fonts</td></tr>
+            <tr><td>Canva</td><td>partial</td><td class="small">Upload the .woff2/.ttf files under Brand Kit (Pro), or substitute below</td></tr>
+            <tr><td>Looker Studio</td><td>partial</td><td class="small">Theme fonts are limited — use Inter throughout, Plex Mono for labels</td></tr>
+            <tr><td>Word / PowerPoint</td><td><span class="tick">✓</span></td><td class="small">Install the .ttf files locally first, then embed fonts on save</td></tr>
+            <tr><td>Email / signature</td><td><span class="cross">✗</span></td><td class="small">Custom fonts don't survive email — use Arial / Helvetica</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small"><strong>Substitution ladder</strong> — when the real face isn't available, go down this list, never sideways into a serif or a rounded face: Unbounded → Golos Text 800 → Montserrat 800 → Arial Black. Inter Tight → Inter → Helvetica Neue → Arial. Plex Mono → Roboto Mono → Courier New.</p>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card"><h3 class="h4">Typographic house rules</h3>
+        <ul class="checks" style="margin-top:10px">
+          <li><span class="m tick">✓</span><span>Sentence case for headings. <b>Never Title Case</b> — it reads corporate.</span></li>
+          <li><span class="m tick">✓</span><span>Numerals always, including one to nine. <b>3 markets</b>, not three markets.</span></li>
+          <li><span class="m tick">✓</span><span>Tabular figures in every table, KPI and chart axis, so columns line up.</span></li>
+          <li><span class="m tick">✓</span><span>One display line per surface. Two competing big lines is the most common mistake.</span></li>
+          <li><span class="m cross">✗</span><span>No italics for emphasis — use weight or colour. Unbounded has no true italic.</span></li>
+          <li><span class="m cross">✗</span><span>No letter-spacing on lowercase body text. Only uppercase labels get tracking.</span></li>
+        </ul>
+      </div>
+      <div class="card"><h3 class="h4">Numbers, dates &amp; currency</h3>
+        <div class="tbl-wrap" style="margin-top:10px;border:none"><table style="min-width:0">
+          <thead><tr><th></th><th>English</th><th>Українська</th></tr></thead>
+          <tbody class="num">
+            <tr><td>Decimal</td><td>4.8</td><td>4,8</td></tr>
+            <tr><td>Thousands</td><td>84,120</td><td>84 120</td></tr>
+            <tr><td>Currency</td><td>$84,120</td><td>84 120 ₴ · 33 $</td></tr>
+            <tr><td>Percent</td><td>+25%</td><td>+25%</td></tr>
+            <tr><td>Date</td><td>11 Aug 2026</td><td>11 серпня 2026</td></tr>
+            <tr><td>Range</td><td>3.4 → 4.8</td><td>3,4 → 4,8</td></tr>
+            <tr><td>Quotes</td><td>“like this”</td><td>«отак»</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small" style="margin-top:10px">Ukrainian uses the apostrophe ’ (U+2019), not a straight quote: <span class="ua">п’ять</span>, <span class="ua">прем’єра</span>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 04 SYSTEM -->
+<section id="system">
+  <div class="wrap stack g48">
+    <div class="sec-head">
+      <div class="sec-no">04</div>
+      <div>
+        <h2 class="h2">Layout &amp; signature elements</h2>
+        <p class="body">Five recurring devices. They are what make a slide recognisably yours when the logo is off-screen — and the reason the identity survives being rebuilt in Canva, Google Slides or Looker Studio by different tools on different days.</p>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <figure class="stack g16">
+        <div class="mock" style="padding:34px;display:grid;place-items:center;background:var(--paper)">
+          <span style="width:62%"><!--LOGO:kz-monogram-duotone.svg--></span>
+        </div>
+        <figcaption><h3 class="h4">1 · The overprint</h3><p class="small">Two brand shapes overlapping, with the intersection filled in a third colour. Pink over yellow gives magenta; pink over ink gives magenta-deep. Use it on covers, launch posts and the first slide — one per document.</p></figcaption>
+      </figure>
+      <figure class="stack g16">
+        <div class="mock" style="padding:44px 34px;background:var(--paper);display:flex;flex-direction:column;gap:22px;justify-content:center">
+          <div style="height:3px;background:#E2DACE;position:relative">
+            <i style="position:absolute;inset:0 auto 0 0;width:74%;background:#C2246E"></i>
+            <u style="position:absolute;top:-3px;left:25%;width:1px;height:9px;background:#79706B"></u>
+            <u style="position:absolute;top:-3px;left:50%;width:1px;height:9px;background:#79706B"></u>
+            <u style="position:absolute;top:-3px;left:75%;width:1px;height:9px;background:#79706B"></u>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--smoke)">
+            <span>Week 1</span><span>Diagnosis</span><span>Rebuild</span><span>Scale</span></div>
+        </div>
+        <figcaption><h3 class="h4">2 · The pacing bar</h3><p class="small">A 3 px rule with tick marks, filled to show progress against a plan. It's the brand's way of saying "we're on a schedule and here's where we are". Report headers, proposal timelines, deck dividers.</p></figcaption>
+      </figure>
+      <figure class="stack g16">
+        <div class="mock" style="padding:30px;background:var(--paper)">
+          <div class="tabs" style="font-size:15px"><span class="on">Wins</span><span>Results</span><span>Next</span></div>
+          <div class="tabcard" style="border-radius:0 12px 12px 12px;padding:26px">
+            <div style="font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:-.035em;line-height:1">Client wins</div>
+            <p class="small" style="margin:0">Three things that moved the number this month.</p>
+          </div>
+        </div>
+        <figcaption><h3 class="h4">3 · Tab cards</h3><p class="small">A card with a folder tab, the active tab in bubblegum. Carousel slides, report sections, service menus — anywhere content is a set of parallel options.</p></figcaption>
+      </figure>
+      <figure class="stack g16">
+        <div class="mock" style="padding:30px;background:var(--paper);display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div style="background:#FF9BD8;border-radius:10px;padding:18px">
+            <div style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#16110F;opacity:.65">Peak monthly spend</div>
+            <div style="font-family:var(--display);font-weight:700;font-size:38px;letter-spacing:-.04em;color:#16110F;line-height:1.05" class="num">$100K</div>
+          </div>
+          <div style="border:1px solid #E2DACE;border-radius:10px;padding:18px;background:#fff">
+            <div style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#79706B">YoY revenue</div>
+            <div style="font-family:var(--display);font-weight:700;font-size:38px;letter-spacing:-.04em;color:#16110F;line-height:1.05" class="num">+25%</div>
+          </div>
+        </div>
+        <figcaption><h3 class="h4">4 · The oversized number</h3><p class="small">KPIs set in Unbounded at display size, label in Plex Mono above. Exactly one tile per group gets the bubblegum fill — the one you want read first.</p></figcaption>
+      </figure>
+    </div>
+
+    <div class="grid g2">
+      <div class="stack g16">
+        <div class="mock" style="padding:30px;background:var(--paper);display:flex;flex-direction:column;gap:14px">
+          <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#79706B">Situation → Job → Result</div>
+          <div style="display:grid;grid-template-columns:130px 1fr;gap:16px;border-top:1px solid #E2DACE;padding-top:12px">
+            <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#79706B">Situation</div>
+            <div style="font-size:14.5px;color:#16110F">Spend is up, revenue is flat, nobody can say which channel broke.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:130px 1fr;gap:16px;border-top:1px solid #E2DACE;padding-top:12px">
+            <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#79706B">Result</div>
+            <div style="font-size:14.5px;color:#16110F"><b>CPA $41 → $33</b> in four weeks, spend held flat.</div>
+          </div>
+        </div>
+        <div><h3 class="h4">5 · The labelled log</h3><p class="small">A left column of Plex Mono labels against a right column of plain sentences, separated by hairlines. It's the structure behind case studies, report sections and proposal scopes — and the reason the work reads as evidence rather than claims.</p></div>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Layout constants</p>
+        <div class="tbl-wrap"><table style="min-width:0">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Grid</td><td class="small">12 columns, 24 px gutters (web) · 12 columns, 6 mm (print)</td></tr>
+            <tr><td>Margins</td><td class="small">A4 18 mm · slide 7% of width · social 8% of width</td></tr>
+            <tr><td>Corner radius</td><td class="small">10 px cards · 6 px chips · 0 px on full-bleed plates</td></tr>
+            <tr><td>Rules</td><td class="small">1 px hairline in Line · 3 px only for the pacing bar</td></tr>
+            <tr><td>Spacing</td><td class="small">4 / 8 / 12 / 16 / 24 / 32 / 48 / 72 — nothing between</td></tr>
+            <tr><td>Shadows</td><td class="small">None on brand elements. Documents are flat.</td></tr>
+            <tr><td>Photography</td><td class="small">Real desks, screens and hands. Desaturated, warm, never stock-smiling.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 05 VOICE -->
+<section id="voice">
+  <div class="wrap stack g48">
+    <div class="sec-head">
+      <div class="sec-no">05</div>
+      <div>
+        <h2 class="h2">Tone of voice</h2>
+        <p class="body">The voice in one line: <strong>the operator who shows you the numbers.</strong> Warm enough to work with, specific enough to trust. It is one person speaking — never an agency "we", never a guru.</p>
+      </div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card"><h3 class="h4">1 · Show the number, not the adjective</h3>
+        <p class="small">"Great results" means nothing. "ROAS 3.4 → 4.8 in 11 weeks" means something. If a sentence has no number in it, it should be doing something else — explaining, deciding or admitting.</p></div>
+      <div class="card"><h3 class="h4">2 · Action first, effect second</h3>
+        <p class="small">Say what you did, then what it did. "I cut the two overlapping audiences, and CPA fell 20%." An effect with no action behind it reads as luck.</p></div>
+      <div class="card"><h3 class="h4">3 · Be honest early</h3>
+        <p class="small">Name the trade-off, the risk or the month that didn't work before anyone asks. Nothing buys more trust with a founder who has been oversold before.</p></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="stack g24">
+        <p class="eyebrow">Where the voice sits</p>
+        <div class="stack g24">
+          <div class="slider"><span>Formal</span><span class="track"><b style="left:25%"></b><b style="left:50%"></b><b style="left:75%"></b><i style="left:70%"></i></span><span>Casual</span></div>
+          <div class="slider"><span>Serious</span><span class="track"><b style="left:25%"></b><b style="left:50%"></b><b style="left:75%"></b><i style="left:36%"></i></span><span>Playful</span></div>
+          <div class="slider"><span>Matter-of-fact</span><span class="track"><b style="left:25%"></b><b style="left:50%"></b><b style="left:75%"></b><i style="left:18%"></i></span><span>Enthusiastic</span></div>
+          <div class="slider"><span>Expert</span><span class="track"><b style="left:25%"></b><b style="left:50%"></b><b style="left:75%"></b><i style="left:58%"></i></span><span>Peer</span></div>
+        </div>
+        <p class="small">Casual but precise. Dry humour is allowed; jokes are not. Enthusiasm is expressed by how specific you are, not by exclamation marks — the brand uses roughly one per quarter.</p>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Words</p>
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px">
+          <div class="card"><h4 class="h4" style="color:#03795F">Use</h4>
+            <p class="small">spend · ROAS · CPA · AOV · contribution margin · test · cut · scale · hold · the honest read · here's what I'd do · what this means for you · week 3 · flat · paying customers</p></div>
+          <div class="card"><h4 class="h4" style="color:#B03A22">Avoid</h4>
+            <p class="small">crushing it · 10x · game-changer · secret sauce · guru · ninja · synergy · leverage <em>(as a verb)</em> · revolutionary · just · simply · unlock · deep dive · circle back · 🚀</p></div>
+        </div>
+        <p class="small"><strong>Two words to be careful with:</strong> "growth" is fine as a noun, tired as an adjective. "Optimise" is honest when you name what you optimised, empty when you don't.</p>
+      </div>
+    </div>
+
+    <div class="stack g16">
+      <p class="eyebrow">Before → after · English</p>
+      <div class="ba">
+        <div class="ba-row">
+          <div class="ba-cell"><span class="ba-tag">Off-brand</span>Excited to share that we've been absolutely crushing it for our client this quarter! 🚀🚀 Huge results!</div>
+          <div class="ba-cell"><span class="ba-tag">On-brand</span>Eleven weeks on this Shopify account: ROAS 3.4 → 4.8, spend up 40%. Three things moved it — here's the honest read.</div>
+        </div>
+        <div class="ba-row">
+          <div class="ba-cell"><span class="ba-tag">Off-brand</span>Leveraging cutting-edge, data-driven strategies to maximise your ROI across the full funnel.</div>
+          <div class="ba-cell"><span class="ba-tag">On-brand</span>I rebuild the account structure, cut what doesn't pay, and put the budget behind what does.</div>
+        </div>
+        <div class="ba-row">
+          <div class="ba-cell"><span class="ba-tag">Off-brand</span>Results may vary depending on a number of factors.</div>
+          <div class="ba-cell"><span class="ba-tag">On-brand</span>Month one is diagnosis, not growth. You'll see the first structural change by week 3 and the first clean read on results at week 6.</div>
+        </div>
+        <div class="ba-row">
+          <div class="ba-cell"><span class="ba-tag">Off-brand</span>Unfortunately, performance was suboptimal this month due to external market conditions.</div>
+          <div class="ba-cell"><span class="ba-tag">On-brand</span>October missed. CPA rose to $38 because the winning creative fatigued faster than I planned for. Two replacements are live; I'll know by 14 Nov whether they hold.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack g16">
+      <p class="eyebrow">Before → after · Українська</p>
+      <div class="ba ua">
+        <div class="ba-row">
+          <div class="ba-cell"><span class="ba-tag">Не наш тон</span>Ми круто відпрацювали цей проєкт! Неймовірні результати 🚀</div>
+          <div class="ba-cell"><span class="ba-tag">Наш тон</span>Одинадцять тижнів роботи з магазином на Shopify: ROAS 3,4 → 4,8, витрати +40%. Розповім, що саме спрацювало.</div>
+        </div>
+        <div class="ba-row">
+          <div class="ba-cell"><span class="ba-tag">Не наш тон</span>Використовуємо передові стратегії для максимізації вашого ROI.</div>
+          <div class="ba-cell"><span class="ba-tag">Наш тон</span>Перебудовую структуру акаунта, вимикаю те, що не окуповується, і масштабую те, що працює.</div>
+        </div>
+        <div class="ba-row">
+          <div class="ba-cell"><span class="ba-tag">Не наш тон</span>На жаль, цього місяця показники були нижчими за очікувані.</div>
+          <div class="ba-cell"><span class="ba-tag">Наш тон</span>Жовтень не вийшов. CPA зріс до 38 $, бо креатив вигорів швидше, ніж я планувала. Дві заміни вже працюють — результат буде видно до 14 листопада.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="h4">Ukrainian-specific rules</h3>
+        <ul class="checks" style="margin-top:10px">
+          <li><span class="m">01</span><span>Address clients as <b>ви</b> (lowercase) — respectful without being stiff. <b>Ти</b> only in DMs with people you already work with.</span></li>
+          <li><span class="m">02</span><span>Speak as <b>я</b>, not <b>ми</b>. It's one person; the singular is the whole point of the brand.</span></li>
+          <li><span class="m">03</span><span>Keep metric abbreviations in Latin — <b>ROAS, CPA, CTR, AOV, LTV</b> — and translate the sentence around them.</span></li>
+          <li><span class="m">04</span><span>Decimal comma, space for thousands: <b>3,4</b> and <b>84 120</b>. Hryvnia goes after the number with a non-breaking space.</span></li>
+          <li><span class="m">05</span><span>Use «lapky» for quotes and the curly apostrophe ’ — straight quotes look like a machine translation.</span></li>
+          <li><span class="m">06</span><span>Leave 15% more room in Ukrainian headlines. If a translated title breaks to three lines, shorten the sentence rather than the type size.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack g16">
+      <p class="eyebrow">By channel</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Surface</th><th>Length</th><th>Opens with</th><th>Ends with</th></tr></thead>
+        <tbody>
+          <tr><td><strong>LinkedIn post</strong></td><td class="small">120–200 words</td><td class="small">A number or a decision, in line one. No "I'm excited to".</td><td class="small">A question you'd actually answer, or nothing.</td></tr>
+          <tr><td><strong>Instagram caption</strong></td><td class="small">40–90 words</td><td class="small">The takeaway, not the setup.</td><td class="small">One CTA. Max 1 emoji, and only here.</td></tr>
+          <tr><td><strong>Proposal</strong></td><td class="small">2–4 pages</td><td class="small">Their situation in their words, before your services.</td><td class="small">Scope, price, start date, what you need from them.</td></tr>
+          <tr><td><strong>Monthly report</strong></td><td class="small">1 page + appendix</td><td class="small">The headline number and whether it hit the target.</td><td class="small">Next month's one priority.</td></tr>
+          <tr><td><strong>Client DM</strong></td><td class="small">1–3 sentences</td><td class="small">The point. No "hope you're well".</td><td class="small">A clear ask or a clear "no action needed".</td></tr>
+          <tr><td><strong>Bio / CV</strong></td><td class="small">2 sentences</td><td class="small">What you do for whom, with the range of budgets.</td><td class="small">Languages and markets.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 06 APPLICATIONS -->
+<section id="apps">
+  <div class="wrap stack g48">
+    <div class="sec-head">
+      <div class="sec-no">06</div>
+      <div>
+        <h2 class="h2">Applications</h2>
+        <p class="body">The same five decisions — ink ground or paper ground, one display line, one pink element, mono labels on the data, numbers in Unbounded — applied to every surface a client actually receives. Copy these layouts rather than inventing new ones.</p>
+      </div>
+    </div>
+
+    <!-- Documents -->
+    <p class="eyebrow">Documents · A4</p>
+    <div class="grid g2">
+      <figure>
+        <div class="mock a4 a4-cover">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <span style="width:30%"><!--LOGO:kz-dot-cream.svg--></span>
+            <span class="a4-mono">Proposal · 2026</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1.1em">
+            <span class="a4-mono" style="opacity:.55">Prepared for · Northbound Supply Co.</span>
+            <div class="big">Scaling paid<br>to <em>$120K/mo</em><br>without losing<br>the margin.</div>
+          </div>
+          <div>
+            <div style="height:3px;background:#3A312C;position:relative;margin-bottom:1.1em">
+              <i style="position:absolute;inset:0 auto 0 0;width:38%;background:#FF9BD8;display:block"></i></div>
+            <div style="display:flex;justify-content:space-between" class="a4-mono">
+              <span>Kristina Zakharchenko</span><span>11 Aug 2026</span></div>
+          </div>
+        </div>
+        <figcaption class="mock-cap">Proposal cover — ink ground, one display line, pink on the number that matters</figcaption>
+      </figure>
+
+      <figure>
+        <div class="mock a4 a4-inner">
+          <div class="a4-head">
+            <!--LOGO:signature-line-ink.svg-->
+            <span class="a4-mono">Monthly report · October</span>
+          </div>
+          <div>
+            <h3>October in one page</h3>
+            <p class="sub" style="margin-top:.3em">Meta · Google · TikTok — 4 markets</p>
+          </div>
+          <div class="kpi-row">
+            <div class="kpi hero"><div class="k">Revenue</div><div class="v">$412K</div><div class="d">+25% YoY</div></div>
+            <div class="kpi"><div class="k">Spend</div><div class="v">$84K</div><div class="d">+4% MoM</div></div>
+            <div class="kpi"><div class="k">ROAS</div><div class="v">4.8</div><div class="d">+0.4</div></div>
+            <div class="kpi"><div class="k">CPA</div><div class="v">$33</div><div class="d neg">−$8 target $30</div></div>
+          </div>
+          <p><strong>The honest read.</strong> Revenue hit target on the back of three creatives, not the whole account. Prospecting is carrying the number while retargeting has been flat for six weeks — that's the thing to fix in November.</p>
+          <table>
+            <thead><tr><th>Channel</th><th>Spend</th><th>Revenue</th><th>ROAS</th></tr></thead>
+            <tbody class="num">
+              <tr><td>Meta</td><td>$48,200</td><td>$248,900</td><td>5.2</td></tr>
+              <tr><td>Google</td><td>$26,400</td><td>$121,000</td><td>4.6</td></tr>
+              <tr><td>TikTok</td><td>$9,520</td><td>$42,100</td><td>4.4</td></tr>
+            </tbody>
+          </table>
+          <div class="a4-foot"><span>Kristina Zakharchenko</span><span>Page 1 / 6</span></div>
+        </div>
+        <figcaption class="mock-cap">Report inner page — signature line as page furniture, one pink KPI tile</figcaption>
+      </figure>
+    </div>
+
+    <!-- Dashboard -->
+    <p class="eyebrow">Dashboards</p>
+    <figure>
+      <div class="mock dash" style="aspect-ratio:16/9">
+        <div class="dash-top">
+          <div style="display:flex;align-items:center;gap:.9em">
+            <!--LOGO:kz-monogram-cream.svg-->
+            <span class="dash-title">Northbound · paid performance</span>
+          </div>
+          <div class="dash-chips"><span class="dash-chip on">Last 30 days</span><span class="dash-chip">QTD</span><span class="dash-chip">All markets</span></div>
+        </div>
+        <div class="dash-kpis">
+          <div class="dtile" style="background:#FF9BD8;border-color:#FF9BD8;color:#16110F">
+            <div class="k" style="color:#16110F;opacity:.65">Revenue</div><div class="v">$412K</div>
+            <div class="d" style="color:#16110F"><span>▲</span> 25% vs LY</div></div>
+          <div class="dtile"><div class="k">Ad spend</div><div class="v">$84.1K</div><div class="d up"><span>▲</span> 4.0% MoM</div></div>
+          <div class="dtile"><div class="k">Blended ROAS</div><div class="v">4.8</div><div class="d up"><span>▲</span> 0.4</div></div>
+          <div class="dtile"><div class="k">CPA</div><div class="v">$33</div><div class="d down"><span>▲</span> $3 over target</div></div>
+        </div>
+        <div class="dash-main">
+          <div class="dpanel">
+            <div class="ph"><span class="pt">Revenue vs spend · weekly</span>
+              <span class="legend"><span><i style="background:#E14A86"></i>Revenue</span><span><i style="background:#5B93EE"></i>Spend</span></span></div>
+            <svg viewBox="0 0 400 150" preserveAspectRatio="none" aria-label="Weekly revenue and spend, both rising over 10 weeks">
+              <g stroke="#2C2420" stroke-width="1">
+                <line x1="0" y1="30" x2="400" y2="30"/><line x1="0" y1="70" x2="400" y2="70"/>
+                <line x1="0" y1="110" x2="400" y2="110"/><line x1="0" y1="145" x2="400" y2="145"/></g>
+              <polyline fill="none" stroke="#E14A86" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+                points="12,116 55,104 98,108 141,88 184,79 227,84 270,62 313,52 356,44 392,26"/>
+              <polyline fill="none" stroke="#5B93EE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+                points="12,134 55,131 98,132 141,126 184,122 227,124 270,118 313,114 356,110 392,104"/>
+              <circle cx="392" cy="26" r="4" fill="#E14A86" stroke="#1E1815" stroke-width="2"/>
+              <circle cx="392" cy="104" r="4" fill="#5B93EE" stroke="#1E1815" stroke-width="2"/>
+              <g font-family="monospace" font-size="11" fill="#F6F1EA" text-anchor="end">
+                <text x="384" y="18">$412K</text><text x="384" y="96">$84K</text></g>
+            </svg>
+            <div class="legend" style="justify-content:space-between;width:100%"><span>W1</span><span>W5</span><span>W10</span></div>
+          </div>
+          <div class="dpanel">
+            <div class="ph"><span class="pt">ROAS by channel</span></div>
+            <svg viewBox="0 0 220 150" aria-label="ROAS by channel: Email 6.1, Meta 5.2, Google 4.6, TikTok 4.4">
+              <g font-family="monospace" font-size="9" fill="#B8ADA4">
+                <text x="0" y="16">EMAIL</text><text x="0" y="50">META</text>
+                <text x="0" y="84">GOOGLE</text><text x="0" y="118">TIKTOK</text></g>
+              <g fill="#E14A86">
+                <rect x="52" y="6" width="122" height="14" rx="4"/>
+                <rect x="52" y="40" width="104" height="14" rx="4"/>
+                <rect x="52" y="74" width="92" height="14" rx="4"/>
+                <rect x="52" y="108" width="88" height="14" rx="4"/></g>
+              <g font-family="monospace" font-size="10" fill="#F6F1EA">
+                <text x="180" y="17">6.1</text><text x="162" y="51">5.2</text>
+                <text x="150" y="85">4.6</text><text x="146" y="119">4.4</text></g>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <figcaption class="mock-cap">Looker Studio / Sheets dashboard — dark ground, one pink KPI, series colours from the validated set, every value directly labelled</figcaption>
+    </figure>
+
+    <!-- Spreadsheet -->
+    <p class="eyebrow">Spreadsheets</p>
+    <figure>
+      <div class="mock sheet">
+        <div class="sheet-bar">
+          <!--LOGO:kz-monogram-small-size-ink.svg-->
+          <span class="nm">Northbound — media plan &amp; pacing</span>
+          <span class="tab"><span class="on">Pacing</span><span>Creative</span><span>Budget</span></span>
+        </div>
+        <table>
+          <tr class="colhead"><th style="width:3%"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+          <thead class="brand"><tr><th></th><th>Week</th><th>Planned</th><th>Actual</th><th>Pacing</th><th>ROAS</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="colhead" style="text-align:center;color:#79706B;font-family:var(--mono)">2</td><td class="lbl">W1 · 1–7 Oct</td><td class="n">$20,000</td><td class="n">$19,140</td><td class="n heat1">96%</td><td class="n">4.4</td><td>On track</td></tr>
+            <tr><td class="colhead" style="text-align:center;color:#79706B;font-family:var(--mono)">3</td><td class="lbl">W2 · 8–14 Oct</td><td class="n">$20,000</td><td class="n">$21,880</td><td class="n heat3">109%</td><td class="n">4.9</td><td>On track</td></tr>
+            <tr><td class="colhead" style="text-align:center;color:#79706B;font-family:var(--mono)">4</td><td class="lbl">W3 · 15–21 Oct</td><td class="n">$22,000</td><td class="n">$24,640</td><td class="n heat4">112%</td><td class="n">5.1</td><td>Watch</td></tr>
+            <tr><td class="colhead" style="text-align:center;color:#79706B;font-family:var(--mono)">5</td><td class="lbl">W4 · 22–31 Oct</td><td class="n">$22,000</td><td class="n">$18,460</td><td class="n heat2">84%</td><td class="n">4.6</td><td>Underspent</td></tr>
+            <tr><td class="colhead" style="text-align:center;color:#79706B;font-family:var(--mono)">6</td><td class="lbl" style="background:#F3EDE4">Total</td><td class="n" style="background:#F3EDE4">$84,000</td><td class="n" style="background:#F3EDE4"><b>$84,120</b></td><td class="n heat2">100%</td><td class="n" style="background:#F3EDE4"><b>4.8</b></td><td style="background:#F3EDE4">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figcaption class="mock-cap">Google Sheets — ink header row, monogram in the title bar, conditional formatting on the pink sequential ramp</figcaption>
+    </figure>
+
+    <!-- Slides -->
+    <p class="eyebrow">Presentations · 16:9</p>
+    <div class="grid g2">
+      <figure>
+        <div class="mock slide dark">
+          <span class="lbl">Q4 strategy · Northbound Supply Co.</span>
+          <div style="margin-top:auto;margin-bottom:auto">
+            <div class="t">Where the next<br><em>$100K</em> comes from.</div>
+          </div>
+          <div class="foot"><span>Kristina Zakharchenko</span><!--LOGO:kz-monogram-cream.svg:slide-mark--></div>
+        </div>
+        <figcaption class="mock-cap">Title slide — ink ground, pink on the number</figcaption>
+      </figure>
+      <figure>
+        <div class="mock slide">
+          <span class="lbl">03 · The plan</span>
+          <h3 style="font-family:var(--head);font-weight:700;font-size:1.4em;letter-spacing:-.02em;margin:.5em 0 .9em">Three moves, in this order</h3>
+          <div class="slide-cards">
+            <div style="background:#FF9BD8">
+              <span class="lbl" style="opacity:.7">Weeks 1–3</span>
+              <b>Rebuild the account structure</b>
+              <span class="cd" style="opacity:.72">One campaign per objective.</span></div>
+            <div style="background:#fff;border:1px solid #E2DACE">
+              <span class="lbl" style="opacity:.55">Weeks 4–6</span>
+              <b>Fix the creative loop</b>
+              <span class="cd">Four concepts a month, one winner.</span></div>
+            <div style="background:#fff;border:1px solid #E2DACE">
+              <span class="lbl" style="opacity:.55">Weeks 7–12</span>
+              <b>Scale in steps of 20%</b>
+              <span class="cd">CPA stays under $30 the whole way.</span></div>
+          </div>
+          <div class="foot"><span>Q4 strategy</span><span>04 / 18</span></div>
+        </div>
+        <figcaption class="mock-cap">Content slide — paper ground, exactly one pink card: the one they should read first</figcaption>
+      </figure>
+    </div>
+
+    <!-- Social -->
+    <p class="eyebrow">Social</p>
+    <figure>
+      <div class="mock banner">
+        <div>
+          <div class="ttl">I turn ad spend into<br><em>paying customers.</em></div>
+        </div>
+        <div class="rgt">Meta · Google · TikTok<br>$15K–$100K+/mo · 4 markets<br>EN · UA</div>
+        <!--LOGO:kz-dot-cream.svg:banner-mark-->
+      </div>
+      <figcaption class="mock-cap">LinkedIn banner · 1584 × 396 — keep the left 25% clear of type where the avatar overlaps on desktop</figcaption>
+    </figure>
+
+    <div class="grid g3">
+      <figure>
+        <div class="mock ig photo">
+          <span class="kick">Case study · 11 weeks</span>
+          <div style="margin-top:auto">
+            <div class="huge">ROAS<br>3.4 <b>→</b> 4.8</div>
+          </div>
+          <div class="btm"><span>Shopify · D2C</span><span>@kristina</span></div>
+        </div>
+        <figcaption class="mock-cap">Instagram · big type on imagery</figcaption>
+      </figure>
+      <figure>
+        <div class="mock ig ig-card">
+          <div class="tabs"><span class="on">Wins</span><span>Results</span><span>Next</span></div>
+          <div class="tabcard">
+            <span class="kick" style="opacity:.5">October</span>
+            <div class="big">Client<br>wins</div>
+            <p style="font-size:.8em;color:#57504D;margin:0">Three things that moved the number.</p>
+          </div>
+          <div class="btm" style="opacity:.5"><span>Kristina Zakharchenko</span><span>1 / 6</span></div>
+        </div>
+        <figcaption class="mock-cap">Instagram · tab-card carousel</figcaption>
+      </figure>
+      <figure>
+        <div class="mock ig" style="background:#FF9BD8;color:#16110F">
+          <span class="kick" style="opacity:.6">Open to projects</span>
+          <div style="margin-top:auto">
+            <div class="huge" style="color:#16110F">Two slots,<br>Q1 2027.</div>
+          </div>
+          <div class="btm"><span>Performance marketing</span><!--LOGO:kz-monogram-ink.svg:slide-mark--></div>
+        </div>
+        <figcaption class="mock-cap">Instagram · flat pink announcement</figcaption>
+      </figure>
+    </div>
+
+    <div class="grid g2">
+      <div class="stack g16">
+        <p class="eyebrow">Profile pictures</p>
+        <div class="plate avatars">
+          <figure><!--LOGO:kz-avatar-circle-ink.svg--><figcaption class="small">LinkedIn</figcaption></figure>
+          <figure><!--LOGO:kz-avatar-circle-pink.svg--><figcaption class="small">Instagram</figcaption></figure>
+          <figure class="sq"><!--LOGO:kz-badge-square-ink.svg--><figcaption class="small">App tile</figcaption></figure>
+          <figure class="sq" style="width:36px"><!--LOGO:kz-favicon-small.svg--><figcaption class="small" style="white-space:nowrap">Favicon</figcaption></figure>
+        </div>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Business card · 85 × 55 mm</p>
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px">
+          <div class="mock bcard front">
+            <span style="display:block;width:46%"><!--LOGO:kz-dot-cream.svg--></span>
+            <div><div class="nm">Kristina<br>Zakharchenko</div>
+            <div class="mn" style="margin-top:.4em">Performance marketing</div></div>
+          </div>
+          <div class="mock bcard back">
+            <div class="mn" style="opacity:.7">Get in touch</div>
+            <div style="font-family:var(--mono);font-size:.72em;letter-spacing:.04em;line-height:2">
+              kristyzakharchenko@gmail.com<br>linkedin.com/in/kristina-zakharchenko<br>EN · UA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack g16">
+      <p class="eyebrow">Email signature</p>
+      <div class="sig">
+        <span class="mk"><!--LOGO:kz-dot-ink.svg--></span>
+        <span class="bar"></span>
+        <div>
+          <div class="nm">Kristina Zakharchenko</div>
+          <div class="rl">Growth &amp; performance marketing</div>
+          <div class="ct">kristyzakharchenko@gmail.com · <b>linkedin.com/in/kristina-zakharchenko</b><br>English · Українська</div>
+        </div>
+      </div>
+      <p class="small">Email clients strip webfonts, so the signature is set in Arial with the monogram as a PNG at 2× (112 px wide, exported from <span class="code">kz-monogram-ink.svg</span>). The 2 px bubblegum rule is the only colour — it survives dark-mode inversion in most clients, which a coloured logo does not.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 07 COMBINING -->
+<section id="combine">
+  <div class="wrap stack g48">
+    <div class="sec-head">
+      <div class="sec-no">07</div>
+      <div>
+        <h2 class="h2">How to combine it</h2>
+        <p class="body">The five decisions that turn the pieces into a layout. Make them in this order and almost anything comes out on-brand; skip one and the surface starts to look like a template.</p>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="stack g16">
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>#</th><th>Decision</th><th>The rule</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td><strong>Pick the ground</strong></td><td class="small">Paper for anything to be read (reports, proposals, docs). Ink for anything to be looked at (covers, title slides, banners, dashboards). Bubblegum only for short announcements. Never a gradient.</td></tr>
+            <tr><td class="num">2</td><td><strong>One display line</strong></td><td class="small">Exactly one thing in Unbounded per surface — a headline or a number, never both. Everything else steps down to Inter Tight or Inter.</td></tr>
+            <tr><td class="num">3</td><td><strong>One pink element</strong></td><td class="small">One fill, one tile, one highlight — the thing you want read first. If two things are pink, neither is emphasised.</td></tr>
+            <tr><td class="num">4</td><td><strong>Yellow last, or not at all</strong></td><td class="small">Butter appears at most once, as a small block or a highlight behind text. If pink is already carrying the layout, skip yellow entirely.</td></tr>
+            <tr><td class="num">5</td><td><strong>Mono the data</strong></td><td class="small">Every label, unit, axis and eyebrow in Plex Mono uppercase. This is the detail that makes the work read as a marketer's, not a designer's.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Approved combinations</p>
+        <div class="tbl-wrap"><table style="min-width:0">
+          <thead><tr><th>Ground</th><th>Text</th><th>Accent</th><th>For</th></tr></thead>
+          <tbody>
+            <tr><td>Paper</td><td>Ink + Graphite</td><td>Magenta</td><td class="small">Reports, proposals, docs</td></tr>
+            <tr><td>Ink</td><td>Paper</td><td>Bubblegum</td><td class="small">Covers, title slides, banners</td></tr>
+            <tr><td>Bubblegum</td><td>Ink</td><td>Paper</td><td class="small">Announcements, one card</td></tr>
+            <tr><td>Butter</td><td>Ink</td><td>Magenta</td><td class="small">Highlight blocks, quotes</td></tr>
+            <tr><td>Paper 2</td><td>Ink</td><td>Magenta</td><td class="small">Panels, table headers</td></tr>
+            <tr><td>Imagery</td><td>Paper</td><td>Bubblegum</td><td class="small">Social, hero photography</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Any pairing not in this table is off-brand. In particular: no pink text on yellow, no yellow text anywhere, no lilac as a ground, and no ink text on imagery without a darkened panel behind it.</p>
+      </div>
+    </div>
+
+    <div class="stack g16">
+      <p class="eyebrow">Side by side</p>
+      <div class="grid g2">
+        <figure>
+          <div class="mock" style="position:relative;background:var(--paper);padding:34px;min-height:230px;display:flex;flex-direction:column;gap:14px">
+            <span class="badge-ok">Right</span>
+            <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#79706B;margin-top:14px">October · Meta</div>
+            <div style="font-family:var(--display);font-weight:700;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.04em;line-height:1;color:#16110F">CPA down<br>to $33.</div>
+            <div style="margin-top:auto;display:flex;gap:10px;align-items:center">
+              <span style="background:#FF9BD8;color:#16110F;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:5px">−20% MoM</span>
+              <span style="font-size:13.5px;color:#57504D">Spend held flat at $84K.</span>
+            </div>
+          </div>
+          <figcaption class="mock-cap">One ground, one display line, one pink element, mono labels</figcaption>
+        </figure>
+        <figure>
+          <div class="mock dont" style="position:relative;background:linear-gradient(135deg,#FF9BD8,#F4EDA0);padding:34px;min-height:230px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
+            <span class="badge-no">Wrong</span>
+            <div style="font-family:var(--display);font-weight:700;font-size:clamp(20px,2.6vw,30px);letter-spacing:-.03em;color:#C2246E;margin-top:16px">Amazing results!</div>
+            <div style="font-family:var(--display);font-weight:700;font-size:clamp(18px,2.2vw,26px);color:#16110F">CPA down to $33 🎉</div>
+            <div style="font-style:italic;font-size:14px;color:#8E1750">Crushing it this month!!</div>
+            <div style="font-size:12px;color:#B03A22">Two display lines · gradient · pink on yellow · italics · hype</div>
+          </div>
+          <figcaption class="mock-cap">Everything the system exists to prevent</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="h4">Ship checklist — run this before anything leaves your desk</h3>
+      <ul class="checks" style="margin-top:12px">
+        <li><span class="m">01</span><span>Is there <b>exactly one</b> display line and <b>exactly one</b> pink element?</span></li>
+        <li><span class="m">02</span><span>Are all labels and units in Plex Mono uppercase, and all figures tabular?</span></li>
+        <li><span class="m">03</span><span>Does every number have a comparison next to it — target, last month, or last year?</span></li>
+        <li><span class="m">04</span><span>Is the logo in an approved colourway with clear space, and above 24 px if it's the interlocked cut?</span></li>
+        <li><span class="m">05</span><span>In a Ukrainian document: do <b>ґ є і ї</b> render in the right face, and are decimals commas?</span></li>
+        <li><span class="m">06</span><span>Is there a sentence that says what you'd do next? A surface without a next step is a brochure.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 08 ASSETS -->
+<section id="assets">
+  <div class="wrap stack g48">
+    <div class="sec-head">
+      <div class="sec-no">08</div>
+      <div>
+        <h2 class="h2">Assets &amp; setup</h2>
+        <p class="body">Everything in this book ships as real files next to it. All logo files are pure vector with the letterforms converted to outlines, so they render identically whether or not Unbounded is installed.</p>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="stack g16">
+        <p class="eyebrow">Files</p>
+        <div class="tbl-wrap"><table style="min-width:0">
+          <thead><tr><th>Path</th><th>What's in it</th></tr></thead>
+          <tbody>
+            <tr><td><span class="code">brand/logo/</span></td><td class="small">30 SVGs — the KZ. mark, the compact ligature, badges, avatars, favicon, wordmarks, lockups and the signature line, in every approved colourway</td></tr>
+            <tr><td><span class="code">brand/fonts/</span></td><td class="small">The five faces, subset to Latin + Cyrillic as .woff2 for web use</td></tr>
+            <tr><td><span class="code">brand/tokens.css</span></td><td class="small">Every colour, font stack and spacing step as CSS custom properties</td></tr>
+            <tr><td><span class="code">brand/brand-book.html</span></td><td class="small">This document — self-contained, print it to PDF to share</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small"><strong>Naming.</strong> Client-facing files follow <span class="code">KZ_Client_Document_YYYY-MM.pdf</span> — for example <span class="code">KZ_Northbound_Report_2026-10.pdf</span>. It sorts correctly and tells a client whose document it is before they open it.</p>
+      </div>
+      <div class="stack g16">
+        <p class="eyebrow">Tokens</p>
+        <pre>:root{
+  --ink:#16110F;   --graphite:#57504D;
+  --smoke:#79706B; --line:#E2DACE;
+  --paper:#FAF7F2; --paper-2:#F3EDE4;
+  --bubble:#FF9BD8;--magenta:#C2246E;
+  --butter:#F4EDA0;--sun:#EFD84C;
+  --lilac:#DCC1F7;
+
+  --display:'Unbounded',sans-serif;
+  --head:'Inter Tight',sans-serif;
+  --head-ua:'Golos Text',sans-serif;
+  --body:'Inter',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}</pre>
+      </div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card"><h3 class="h4">Set up Google Workspace once</h3>
+        <p class="small">In Docs or Slides: <b>Fonts → More fonts</b> → add Unbounded, Inter Tight, Inter, Golos Text, IBM Plex Mono. Then build one template doc and one template deck with the styles already applied, and start every client file from those instead of a blank page.</p></div>
+      <div class="card"><h3 class="h4">Set up Canva once</h3>
+        <p class="small">Brand Kit → upload the five colours by hex, upload the logo SVGs, and upload the font files. Canva doesn't carry Unbounded by default — if the upload isn't available on your plan, use Golos Text 800 for display and note the substitution.</p></div>
+      <div class="card"><h3 class="h4">Bring the website in line</h3>
+        <p class="small">The current site uses Fraunces for display, which has <b>no Cyrillic at all</b> — a Ukrainian version would silently fall back to a system serif. Swapping the display face to Unbounded and the greens to this palette makes the site match everything in this book.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="end">
+  <div class="wrap">
+    <!--LOGO:lockup-horizontal-cream.svg-->
+    <div class="small">Brand book v1.0 · August 2026<br>Kristina Zakharchenko · Performance marketing · EN / UA</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  function current(){
+    return root.getAttribute('data-theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  }
+  btn.addEventListener('click',function(){
+    var next=current()==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    btn.textContent=next==='dark'?'Light':'Dark';
+  });
+  btn.textContent=current()==='dark'?'Light':'Dark';
+})();
+</script>
