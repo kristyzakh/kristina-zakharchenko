@@ -10,16 +10,27 @@ python3 -m http.server 8934
 
 Then open http://localhost:8934
 
-## Deploy (free, keeps one stable link)
+## Brand
 
-**GitHub Pages**
-1. Create a new GitHub repo and push this folder to it.
-2. Repo Settings → Pages → Deploy from branch → `main` / root.
-3. Your link: `https://<username>.github.io/<repo-name>/`
+The full identity — logo files, palette, EN/UA typography, tone of voice — lives in
+[`brand/`](brand/). Start with [`brand/brand-book.html`](brand/brand-book.html); it is
+self-contained, so it opens offline and prints straight to PDF. See
+[`brand/README.md`](brand/README.md) for which logo file to use where.
 
-**Netlify / Vercel (drag-and-drop, no git needed)**
-1. Go to netlify.com (or vercel.com) → New site → drag this folder in.
-2. You get an instant `https://...netlify.app` link — can add a custom domain later.
+## Deploy — GitHub Pages
+
+Hosted at **https://kristyzakh.github.io/kristina-zakharchenko/**
+
+```bash
+git push -u origin main
+```
+
+Then: repo Settings → Pages → Deploy from branch → `main` / `/ (root)`. First build
+takes a minute or two. After that, every `git push` republishes.
+
+The brand book sits at `/brand/brand-book.html` and carries a `noindex` tag — reachable
+by anyone with the link, but not indexed and not linked from the site. To surface it
+publicly, uncomment the footer link in `index.html`.
 
 ## Updating content
 
