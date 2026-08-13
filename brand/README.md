@@ -8,6 +8,8 @@ and can be sent as a single file.
 brand/
   brand-book.html      ← the brand book. Open this first. Print → Save as PDF to share.
   brand-book.src.html  ← editable source (logos/fonts are injected at build time)
+  make-logos.py        ← regenerates every logo SVG from the fonts
+  build.py             ← folds fonts + logos into brand-book.html
   tokens.css           ← every colour, font and spacing step as CSS variables
   logo/                ← 34 SVGs, letterforms converted to outlines
   fonts/               ← the 5 faces, subset to Latin + Cyrillic, as .woff2
@@ -108,14 +110,33 @@ when saving, or the client sees Calibri.
   looks different from the rest of the line, the font has fallen back.
 - Quotes are «lapky»; the apostrophe is ’ (U+2019), not `'`.
 
-## Rebuilding the brand book
+## Changing things
 
-`brand-book.html` is generated from `brand-book.src.html` by inlining the fonts and
-logo SVGs. Edit the `.src.html` file, then run:
+Both scripts need `fontTools`, once: `pip3 install fonttools brotli`
+
+**To change the wording under the name** (role or focus line) — edit the CONSTANTS
+block at the top of `make-logos.py`, then:
 
 ```bash
-python3 brand/build.py
+python3 brand/make-logos.py && python3 brand/build.py
 ```
+
+`make-logos.py` rewrites all 34 SVGs from the fonts, converting the letterforms to
+outline paths so the files never depend on Unbounded being installed. It is
+deterministic: running it without changing anything reproduces the current files
+byte-for-byte, so a `git diff` after running it shows exactly what your edit changed
+and nothing else.
+
+**To change colours, sizes or spacing** — the same CONSTANTS block holds the palette,
+cap height, and the letter gaps for each mark. The `FILES` dict at the bottom maps every
+output filename to how it's built; add a line there to add a variant.
+
+**To edit the brand book's own text** — edit `brand-book.src.html`, then run
+`build.py`. Never edit `brand-book.html` directly; it's generated and your changes
+will be overwritten.
+
+**After any change**, commit and push — the live copy at
+`kristyzakh.github.io/kristina-zakharchenko/brand/brand-book.html` updates on push.
 
 ## The website
 
