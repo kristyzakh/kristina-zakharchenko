@@ -15,9 +15,8 @@ assets/*.png
 
 # ---------------------------------------------------------------------------
 # NEVER PUBLISH. This repo deploys to a PUBLIC website — anything committed
-# here is world-readable at kristyzakh.github.io. These are tax registration
-# documents, residence records, signed contracts, client invoices and the
-# generator that embeds bank details.
+# here is world-readable at kristyzakh.github.io. Tax registration documents
+# and residence records — see the separate "Kristina Finances" repo for
+# contracts, invoices and the invoice generator (moved out 2026-08-13).
 # ---------------------------------------------------------------------------
 legacy/
-legal/
