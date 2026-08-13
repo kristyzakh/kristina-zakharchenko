@@ -1,4 +1,4 @@
-# Kristina Zakharchenko — Performance Marketing site
+# Kristina Zakharchenko — Digital & Performance Marketing site
 
 Single-page site (`index.html`, `styles.css`, `script.js`), no build step. Framed around Jobs-to-be-Done: situations → jobs → case studies → toolkit → contact.
 

@@ -1,4 +1,4 @@
-# KZ brand kit v1.0
+# KZ brand kit v1.1
 
 Everything that makes a surface look like yours. Start with `brand-book.html` — open it
 in a browser; it is self-contained (fonts and logos are embedded), so it works offline
@@ -9,7 +9,7 @@ brand/
   brand-book.html      ← the brand book. Open this first. Print → Save as PDF to share.
   brand-book.src.html  ← editable source (logos/fonts are injected at build time)
   tokens.css           ← every colour, font and spacing step as CSS variables
-  logo/                ← 30 SVGs, letterforms converted to outlines
+  logo/                ← 34 SVGs, letterforms converted to outlines
   fonts/               ← the 5 faces, subset to Latin + Cyrillic, as .woff2
 ```
 
@@ -47,7 +47,8 @@ anywhere the dot would be lost — avatars, favicons, app tiles, table headers, 
 | Under 24 px — favicon, table headers | `logo/kz-monogram-small-size-ink.svg` |
 | Covers, launch posts, slide one | `logo/kz-monogram-duotone.svg` (overprint) |
 | Document header, letterhead, deck footer | `logo/lockup-horizontal-ink.svg` |
-| Title slide, proposal cover, anything centred | `logo/lockup-vertical-ink.svg` |
+| Title slide, anything centred | `logo/lockup-vertical-ink.svg` |
+| Proposal cover, LinkedIn banner, deck slide one | `logo/lockup-horizontal-focus-ink.svg` · `-cream.svg` |
 | Email footer, PDF page furniture | `logo/signature-line-ink.svg` |
 | Browser tab | `logo/kz-favicon-small.svg` |
 
@@ -55,6 +56,26 @@ Clear space on all four sides = **half the height of the mark**. Nothing enters 
 
 Three rules for the dot: never drop it from the primary mark, never make it yellow or
 lilac, never change its shape. If the dot doesn't fit, switch to the ligature.
+
+## How the name is written
+
+| Where | Wording |
+|---|---|
+| Logo lockups, page furniture | `DIGITAL & PERFORMANCE MARKETING` |
+| Focus lockups, banners, proposal covers | + `E-COMMERCE · LEAD GENERATION` underneath |
+| Site title, email signature | Kristina Zakharchenko — Digital & Performance Marketing |
+| First person, bios, captions | "I'm a digital and performance marketer" |
+| Ukrainian | Цифровий та performance-маркетинг · E-commerce · лідогенерація |
+
+The discipline form goes under the name because a line under a name reads as a field,
+not a job title. Keep **E-commerce** spelled out everywhere a client reads it; `E-com`
+is fine on Instagram.
+
+Never both tiers on one page — the focus line is for the surface where someone is
+deciding whether you're for them, not for every footer.
+
+**Past job titles don't change.** "Performance Marketing Manager" and "Performance
+Marketing Specialist" in the case studies are employment history, not positioning.
 
 ## Setting up your tools (do this once)
 
@@ -96,9 +117,11 @@ logo SVGs. Edit the `.src.html` file, then run:
 python3 brand/build.py
 ```
 
-## Known gap
+## The website
 
-The website (`../index.html`) still uses **Fraunces**, which contains no Cyrillic —
-a Ukrainian version of the site would silently fall back to a system serif. Swapping
-the display face to Unbounded and the greens to this palette brings the site in line
-with everything here.
+`../index.html` is built on this kit: it links `tokens.css` directly, loads the five
+faces from `fonts/`, and uses `logo/kz-dot-ink.svg` in the header and
+`logo/kz-dot-cream.svg` on the ink hero. Display is Unbounded, headings Inter Tight,
+labels IBM Plex Mono, and the accent is magenta with bubblegum reserved for fills.
+Because nothing on the page depends on Fraunces any more, a Ukrainian version only
+needs `lang="uk"` on `<html>` for headings to swap to Golos Text.

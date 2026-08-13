@@ -12,3 +12,9 @@ assets/*.png
 
 # Duplicate of assets/Kristina-Zakharchenko-CV.docx (the copy the site actually links to)
 /CV Kristina Zakharchenko _ Growth & Performance Marketing Manager.docx
+
+# Invoice generator dependencies
+legal/invoices/node_modules/
+
+# Generated invoices — client billing records, not site content
+legal/invoices/output/
