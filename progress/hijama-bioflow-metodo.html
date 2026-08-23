@@ -101,6 +101,12 @@ body {
   font-family: var(--mono); font-weight: 500; font-size: 11px;
   letter-spacing: .14em; text-transform: uppercase; color: var(--text-3);
 }
+.edit-badge {
+  display: none; margin-left: 10px; background: var(--accent-fill); color: var(--accent-on-fill);
+  font-family: var(--mono); font-weight: 500; font-size: 9.5px; letter-spacing: .08em;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 999px; vertical-align: middle;
+}
+body.edit-mode .edit-badge { display: inline-block; }
 
 .hero { padding: 56px 0 8px; }
 .chip {
@@ -147,6 +153,15 @@ h2 {
 }
 p.muted { color: var(--text-2); font-size: 15.5px; margin: 0 0 4px; max-width: 62ch; }
 
+.copy-status-btn {
+  display: none; margin-top: 16px; font-family: var(--mono); font-weight: 500; font-size: 11.5px;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
+  background: var(--ground); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 9px 14px; cursor: pointer;
+}
+body.edit-mode .copy-status-btn { display: inline-flex; align-items: center; }
+.copy-status-btn:hover { border-color: var(--accent); }
+
 /* --- block cards --- */
 .block-card {
   border: 1px solid var(--rule); border-radius: 12px;
@@ -177,6 +192,8 @@ p.muted { color: var(--text-2); font-size: 15.5px; margin: 0 0 4px; max-width: 6
   width: 17px; height: 17px; border-radius: 50%; flex-shrink: 0; margin-top: 2px;
   border: 1.5px solid var(--rule); display: flex; align-items: center; justify-content: center;
 }
+body.edit-mode .subtask-dot { cursor: pointer; }
+body.edit-mode .subtask-dot:hover { border-color: var(--accent); }
 .subtask-dot svg { width: 11px; height: 11px; }
 .subtask-dot.done { background: var(--accent-fill); border-color: var(--accent-fill); }
 .subtask-dot.in_progress { border-color: var(--accent); background: linear-gradient(90deg, var(--accent-fill) 50%, transparent 50%); }
@@ -244,7 +261,7 @@ footer .sig {
       <svg class="lockup" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 699.20 87" role="img" aria-label="Kristina Zakharchenko"><g transform="translate(-6.68,86.83)"><path d="M6.68 0.00V-72.00H26.50V-15.84L21.22 -19.97L61.98 -72.00H83.02L24.69 0.00ZM41.13 -34.35 55.64 -46.43 84.02 0.00H61.40Z" fill="currentColor"/><path d="M87.86 0.00V-14.42L135.00 -60.71L149.43 -56.43H88.19V-72.06H157.07V-57.68L109.96 -11.31L97.59 -15.63H157.36V0.00Z" fill="currentColor"/><path d="M183.76 1.00Q180.69 1.00 178.17 -0.46Q175.64 -1.92 174.18 -4.44Q172.72 -6.97 172.72 -10.04Q172.72 -13.17 174.18 -15.67Q175.64 -18.16 178.17 -19.62Q180.69 -21.08 183.76 -21.08Q186.89 -21.08 189.39 -19.62Q191.88 -18.16 193.34 -15.67Q194.80 -13.17 194.80 -10.04Q194.80 -6.97 193.34 -4.44Q191.88 -1.92 189.39 -0.46Q186.89 1.00 183.76 1.00Z" fill="var(--logo-dot)"/></g><rect x="218.36" y="14.83" width="1.73" height="72.00" fill="currentColor" opacity="0.22"/><g transform="translate(245.51,31.68)"><path d="M3.09 0.00V-31.68H11.02V-6.40L8.86 -8.03L27.61 -31.68H36.07L10.28 0.00ZM18.23 -15.32 24.00 -20.26 36.51 0.00H27.45Z M44.94 -17.73H56.81Q59.07 -17.73 60.36 -18.77Q61.66 -19.80 61.66 -21.66Q61.66 -23.54 60.36 -24.56Q59.07 -25.59 56.81 -25.59H43.81L47.39 -29.52V0.00H39.42V-31.68H57.85Q61.40 -31.68 64.07 -30.42Q66.73 -29.16 68.22 -26.92Q69.71 -24.68 69.71 -21.66Q69.71 -18.72 68.22 -16.47Q66.73 -14.22 64.07 -12.97Q61.40 -11.72 57.85 -11.72H44.94ZM50.05 -14.83H59.07L70.72 0.00H61.45Z M74.90 -31.68H82.87V0.00H74.90Z M87.51 -10.36H95.60Q95.82 -8.90 96.91 -7.82Q98.00 -6.73 99.84 -6.14Q101.67 -5.55 104.13 -5.55Q107.61 -5.55 109.62 -6.51Q111.63 -7.47 111.63 -9.24Q111.63 -10.60 110.48 -11.35Q109.33 -12.10 106.14 -12.43L100.02 -13.07Q93.64 -13.70 90.79 -16.01Q87.94 -18.32 87.94 -22.33Q87.94 -25.53 89.81 -27.77Q91.69 -30.01 95.10 -31.18Q98.51 -32.35 103.08 -32.35Q107.58 -32.35 111.05 -31.05Q114.53 -29.76 116.59 -27.43Q118.65 -25.10 118.83 -21.99H110.74Q110.57 -23.26 109.59 -24.18Q108.62 -25.10 106.93 -25.62Q105.25 -26.13 102.92 -26.13Q99.74 -26.13 97.86 -25.23Q95.98 -24.32 95.98 -22.64Q95.98 -21.38 97.09 -20.66Q98.20 -19.93 101.08 -19.60L107.56 -18.89Q111.99 -18.43 114.64 -17.40Q117.30 -16.37 118.48 -14.60Q119.66 -12.83 119.66 -10.13Q119.66 -6.88 117.70 -4.45Q115.75 -2.01 112.22 -0.67Q108.69 0.67 103.98 0.67Q99.16 0.67 95.49 -0.71Q91.83 -2.10 89.73 -4.59Q87.64 -7.07 87.51 -10.36Z M134.25 -28.15H142.22V0.00H134.25ZM121.92 -31.68H154.55V-24.61H121.92Z M158.41 -31.68H166.38V0.00H158.41Z M201.92 -5.43 199.33 -4.97V-31.68H207.06V0.00H197.01L177.72 -26.69L180.28 -27.15V0.00H172.56V-31.68H182.88Z M218.94 -6.39V-12.82H240.83V-6.39ZM235.24 -31.68 249.86 0.00H241.35L228.83 -28.35H231.27L218.75 0.00H210.25L224.87 -31.68Z" fill="currentColor"/></g><g transform="translate(246.85,72.86)"><path d="M1.75 0.00V-5.82L23.15 -27.26L28.81 -25.38H1.90V-31.70H31.88V-25.90L10.48 -4.42L5.62 -6.32H32.01V0.00Z M42.59 -6.39V-12.82H64.48V-6.39ZM58.89 -31.68 73.50 0.00H65.00L52.48 -28.35H54.92L42.40 0.00H33.90L48.51 -31.68Z M76.72 0.00V-31.68H84.65V-6.40L82.48 -8.03L101.24 -31.68H109.69L83.91 0.00ZM91.85 -15.32 97.63 -20.26 110.14 0.00H101.08Z M113.04 -31.68H121.01V0.00H113.04ZM138.20 -31.68H146.17V0.00H138.20ZM117.47 -19.58H141.58V-12.55H117.47Z M158.07 -6.39V-12.82H179.96V-6.39ZM174.37 -31.68 188.99 0.00H180.49L167.97 -28.35H170.40L157.88 0.00H149.38L164.00 -31.68Z M197.72 -17.73H209.60Q211.85 -17.73 213.15 -18.77Q214.44 -19.80 214.44 -21.66Q214.44 -23.54 213.15 -24.56Q211.85 -25.59 209.60 -25.59H196.60L200.17 -29.52V0.00H192.20V-31.68H210.64Q214.18 -31.68 216.85 -30.42Q219.51 -29.16 221.00 -26.92Q222.50 -24.68 222.50 -21.66Q222.50 -18.72 221.00 -16.47Q219.51 -14.22 216.85 -12.97Q214.18 -11.72 210.64 -11.72H197.72ZM202.83 -14.83H211.85L223.51 0.00H214.23Z M262.44 -13.08Q261.98 -8.98 259.60 -5.88Q257.23 -2.78 253.36 -1.06Q249.49 0.67 244.51 0.67Q239.03 0.67 234.92 -1.40Q230.82 -3.47 228.53 -7.19Q226.24 -10.90 226.24 -15.84Q226.24 -20.78 228.53 -24.49Q230.82 -28.21 234.92 -30.28Q239.03 -32.35 244.51 -32.35Q249.49 -32.35 253.36 -30.62Q257.23 -28.90 259.60 -25.81Q261.98 -22.72 262.44 -18.60H254.43Q254.00 -20.74 252.70 -22.26Q251.40 -23.78 249.32 -24.60Q247.24 -25.42 244.48 -25.42Q241.34 -25.42 239.05 -24.27Q236.76 -23.11 235.53 -20.95Q234.30 -18.79 234.30 -15.84Q234.30 -12.89 235.53 -10.74Q236.76 -8.59 239.05 -7.42Q241.34 -6.26 244.48 -6.26Q247.24 -6.26 249.32 -7.05Q251.40 -7.84 252.70 -9.37Q254.00 -10.90 254.43 -13.08Z M266.92 -31.68H274.89V0.00H266.92ZM292.08 -31.68H300.05V0.00H292.08ZM271.35 -19.58H295.46V-12.55H271.35Z M332.88 -18.81V-12.87H309.97V-18.81ZM315.35 -15.84 313.25 -2.75 309.92 -6.53H334.26V0.00H305.26L307.70 -15.84L305.26 -31.68H334.05V-25.15H309.92L313.25 -28.93Z M368.85 -5.43 366.26 -4.97V-31.68H373.99V0.00H363.95L344.66 -26.69L347.22 -27.15V0.00H339.49V-31.68H349.82Z M380.17 0.00V-31.68H388.10V-6.40L385.94 -8.03L404.69 -31.68H413.14L387.36 0.00ZM395.31 -15.32 401.08 -20.26 413.59 0.00H404.53Z M433.69 0.67Q428.11 0.67 423.91 -1.40Q419.71 -3.47 417.37 -7.19Q415.03 -10.90 415.03 -15.84Q415.03 -20.78 417.37 -24.49Q419.71 -28.21 423.91 -30.28Q428.11 -32.35 433.69 -32.35Q439.27 -32.35 443.47 -30.28Q447.67 -28.21 450.01 -24.49Q452.35 -20.78 452.35 -15.84Q452.35 -10.90 450.01 -7.19Q447.67 -3.47 443.47 -1.40Q439.27 0.67 433.69 0.67ZM433.69 -6.45Q436.96 -6.45 439.33 -7.58Q441.70 -8.72 443.00 -10.83Q444.29 -12.94 444.29 -15.84Q444.29 -18.74 443.00 -20.85Q441.70 -22.96 439.33 -24.10Q436.96 -25.23 433.69 -25.23Q430.44 -25.23 428.06 -24.10Q425.68 -22.96 424.38 -20.85Q423.09 -18.74 423.09 -15.84Q423.09 -12.94 424.38 -10.83Q425.68 -8.72 428.06 -7.58Q430.44 -6.45 433.69 -6.45Z" fill="currentColor"/></g></svg>
       <div class="masthead-role">Digital &amp; Performance Marketing<br>E-commerce · Lead generation</div>
     </div>
-    <div class="label">Ход проекта</div>
+    <div class="label">Ход проекта<span class="edit-badge">Режим редактирования</span></div>
   </header>
 
   <div class="hero">
@@ -262,6 +279,7 @@ footer .sig {
     <p class="eyebrow">Этап 0 · Фундамент</p>
     <h2>Задачи по блокам</h2>
     <p class="muted">Каждый блок обновляется по ходу работы. Ссылки на готовые материалы появляются рядом с задачей.</p>
+    <button class="copy-status-btn" type="button" onclick="kzCopyStatus(this)">Скопировать статус для обновления</button>
     
     <div class="block-card">
       <div class="block-head">
@@ -274,21 +292,21 @@ footer .sig {
       <p class="block-desc">Разбор текущего состояния соцсетей и активов, анализ конкурентов, список того, что нужно снять и собрать для контента.</p>
       <div class="subtasks">
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="A" data-idx="0" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Аудит текущих соцсетей и активов</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="A" data-idx="1" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Анализ конкурентных профилей</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="A" data-idx="2" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Список материалов для съёмки/сбора контента</div>
           
@@ -307,35 +325,35 @@ footer .sig {
       <p class="block-desc">Логотип и его использование, цвета, шрифты, тон коммуникации, стиль фото и видео, готовые шаблоны.</p>
       <div class="subtasks">
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="B" data-idx="0" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Логотип и правила использования</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="B" data-idx="1" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Палитра и шрифты</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="B" data-idx="2" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Тон коммуникации</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="B" data-idx="3" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Стиль фото и видео</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="B" data-idx="4" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Готовые шаблоны</div>
           
@@ -354,28 +372,28 @@ footer .sig {
       <p class="block-desc">Календарь публикаций, рубрики, форматы, частота, шаблон визуальной сетки профиля.</p>
       <div class="subtasks">
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="C" data-idx="0" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Календарь публикаций</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="C" data-idx="1" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Рубрики и форматы</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="C" data-idx="2" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Частота публикаций</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="C" data-idx="3" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Шаблон визуальной сетки</div>
           
@@ -394,42 +412,42 @@ footer .sig {
       <p class="block-desc">Meta Business Manager, рекламный кабинет Meta, пиксель, бизнес-профили Instagram и Facebook, корректные права доступа.</p>
       <div class="subtasks">
       <div class="subtask-row">
-        <span class="subtask-dot in_progress"></span>
+        <span class="subtask-dot in_progress" data-block="D" data-idx="0" data-status="in_progress"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Business Manager создан, права переданы Ольге</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="D" data-idx="1" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Facebook-страница подключена</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="D" data-idx="2" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Instagram переведён в бизнес-аккаунт и подключён</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="D" data-idx="3" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Рекламный кабинет создан</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="D" data-idx="4" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Meta Pixel установлен</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="D" data-idx="5" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Верификация бизнеса запущена</div>
           
@@ -448,21 +466,21 @@ footer .sig {
       <p class="block-desc">Цели, разложенные на измеримые показатели и привязанные к ориентирам по доходу, сегментация аудитории, дорожная карта.</p>
       <div class="subtasks">
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="E" data-idx="0" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Цели → измеримые KPI</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="E" data-idx="1" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Сегментация аудитории</div>
           
         </div>
       </div>
       <div class="subtask-row">
-        <span class="subtask-dot not_started"></span>
+        <span class="subtask-dot not_started" data-block="E" data-idx="2" data-status="not_started"></span>
         <div class="subtask-body">
           <div class="subtask-name ">Дорожная карта на ближайшие месяцы</div>
           
@@ -501,6 +519,87 @@ footer .sig {
   </footer>
 
 </div>
+
+<script>
+(function () {
+  var CHECK_SVG = "<svg viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><path d=\"M3.5 8.5L6.5 11.5L12.5 4.5\" stroke=\"var(--accent-on-fill)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>";
+  var STATUS_LABEL = {"done": "\u0413\u043e\u0442\u043e\u0432\u043e", "in_progress": "\u0412 \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u0435", "not_started": "\u041d\u0435 \u043d\u0430\u0447\u0430\u0442\u043e"};
+  var params = new URLSearchParams(location.search);
+  if (params.get('edit') !== "kz") return;
+
+  document.body.classList.add('edit-mode');
+  var STORAGE_KEY = 'kz-tracker-' + "hijama-bioflow-metodo";
+  var overrides = {};
+  try { overrides = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) {}
+
+  function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides)); }
+  function effectiveStatus(dot) {
+    var k = dot.dataset.block + ':' + dot.dataset.idx;
+    return overrides[k] ? 'done' : dot.dataset.status;
+  }
+
+  function renderDot(dot) {
+    var status = effectiveStatus(dot);
+    dot.classList.remove('done', 'in_progress', 'not_started');
+    dot.classList.add(status);
+    dot.innerHTML = status === 'done' ? CHECK_SVG : '';
+    var name = dot.closest('.subtask-row').querySelector('.subtask-name');
+    name.classList.toggle('done', status === 'done');
+  }
+
+  function renderBlock(card) {
+    var dots = card.querySelectorAll('.subtask-dot');
+    var statuses = Array.prototype.map.call(dots, effectiveStatus);
+    var bstatus = statuses.every(function (s) { return s === 'done'; }) ? 'done'
+      : statuses.some(function (s) { return s === 'done' || s === 'in_progress'; }) ? 'in_progress'
+      : 'not_started';
+    var badge = card.querySelector('.status-badge');
+    badge.classList.remove('done', 'in_progress', 'not_started');
+    badge.classList.add(bstatus);
+    badge.textContent = STATUS_LABEL[bstatus];
+  }
+
+  function renderProgress() {
+    var dots = document.querySelectorAll('.subtask-dot');
+    var score = 0;
+    dots.forEach(function (d) {
+      var s = effectiveStatus(d);
+      if (s === 'done') score += 1;
+      else if (s === 'in_progress') score += 0.5;
+    });
+    var pct = Math.round(score / dots.length * 100);
+    document.querySelector('.progress-bar-fill').style.width = pct + '%';
+    document.querySelector('.progress-label b').textContent = pct + '%';
+  }
+
+  function renderAll() {
+    document.querySelectorAll('.subtask-dot').forEach(renderDot);
+    document.querySelectorAll('.block-card').forEach(renderBlock);
+    renderProgress();
+  }
+
+  document.querySelectorAll('.subtask-dot').forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      var k = dot.dataset.block + ':' + dot.dataset.idx;
+      if (overrides[k]) delete overrides[k]; else overrides[k] = true;
+      save();
+      renderAll();
+    });
+  });
+
+  window.kzCopyStatus = function (btn) {
+    var keys = Object.keys(overrides);
+    var text = keys.length ? 'Отметить как готово: ' + keys.join(', ') : 'Изменений нет';
+    navigator.clipboard.writeText(text).then(function () {
+      var orig = btn.textContent;
+      btn.textContent = 'Скопировано';
+      setTimeout(function () { btn.textContent = orig; }, 1500);
+    });
+  };
+
+  renderAll();
+})();
+</script>
 
 </body>
 </html>
