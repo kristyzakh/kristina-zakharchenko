@@ -766,18 +766,6 @@ details.fold[open] summary svg { transform:rotate(180deg); }
 }
 .cwork-open svg { width:11px; height:11px; }
 
-.proj-row {
-  display:flex; align-items:center; gap:12px; width:100%; text-align:left;
-  padding:14px; border:1px solid var(--rule); border-radius:12px; background:var(--surface); margin-bottom:8px;
-}
-.proj-row.on { border-color:var(--accent-fill); background:var(--accent-tint); }
-.proj-row .pr-name { font-family:var(--head); font-weight:700; font-size:15px; }
-.proj-row .pr-sub { font-size:12.5px; color:var(--text-2); }
-.proj-new {
-  display:flex; align-items:center; justify-content:center; gap:9px; width:100%;
-  border:1px dashed var(--rule-strong); border-radius:12px; padding:16px; color:var(--text-3);
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
-}
 .sheet-note { font-size:12.5px; color:var(--text-3); margin-top:14px; line-height:1.5; }
 
 @media (min-width:560px) {
@@ -1860,19 +1848,9 @@ details.fold[open] summary svg { transform:rotate(180deg); }
   }
 
   /* ============================= projects ============================ */
-
-  el('projectBtn').addEventListener('click', function () {
-    var body = D.projects.map(function (p) {
-      return '<div class="proj-row' + (p.active ? ' on' : '') + '">' +
-        '<span class="project-avatar">' + esc(p.name.slice(0, 1)) + '</span>' +
-        '<span><span class="pr-name">' + esc(p.name) + '</span><br>' +
-        '<span class="pr-sub">' + esc(p.niche) + '</span></span></div>';
-    }).join('');
-    body += '<div class="proj-new">' + ICON.plus + 'Новый проект</div>';
-    body += '<p class="sheet-note">У каждого проекта свой календарь, этапы и KPI. ' +
-      'Переключение появится в следующей версии.</p>';
-    openSheet('Проекты', 'Переключить проект', body);
-  });
+  // Клик по шапке ведёт на «Этапы» — это то, что клиенту нужно увидеть
+  // (на каком этапе проект сейчас), а не служебный переключатель клиентов.
+  el('projectBtn').addEventListener('click', function () { switchView('stages'); });
 
   /* ============================== stages ============================= */
 
@@ -2072,14 +2050,16 @@ details.fold[open] summary svg { transform:rotate(180deg); }
 
   /* =============================== tabs ============================== */
 
-  document.querySelectorAll('.tab').forEach(function (t) {
-    t.addEventListener('click', function () {
-      document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x === t); });
-      document.querySelectorAll('.view').forEach(function (v) {
-        v.classList.toggle('active', v.id === 'view-' + t.dataset.view);
-      });
-      window.scrollTo({ top: 0, behavior: 'instant' });
+  function switchView(name) {
+    document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x.dataset.view === name); });
+    document.querySelectorAll('.view').forEach(function (v) {
+      v.classList.toggle('active', v.id === 'view-' + name);
     });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.addEventListener('click', function () { switchView(t.dataset.view); });
   });
 
   el('calPrev').addEventListener('click', function () {
