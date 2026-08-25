@@ -753,6 +753,13 @@ details.fold[open] summary svg { transform:rotate(180deg); }
   font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:.05em;
   text-transform:uppercase; color:var(--text);
 }
+.cwork-edited {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-tint);
+  border:1px solid var(--st-confirmed-line); border-radius:999px; padding:3px 8px;
+}
+.cwork-edited svg { width:9px; height:9px; }
 .cwork-open {
   width:28px; height:28px; border-radius:999px; flex-shrink:0; display:grid; place-items:center;
   border:1px solid var(--rule); background:var(--ground); color:var(--text-3);
@@ -1014,12 +1021,21 @@ details.fold[open] summary svg { transform:rotate(180deg); }
   function pullPostStatus() {
     var url = SUPABASE_URL + '/rest/v1/post_status?client=eq.' + encodeURIComponent(D.slug) + '&select=item_id,status';
     fetch(url, { headers: syncHeaders() }).then(function (r) { return r.ok ? r.json() : []; }).then(function (rows) {
-      var changed = false;
+      var changed = false, capChanged = false;
       rows.forEach(function (row) {
+        // «caption:<post_no>» — синтетический item_id, тем же способом синхронизируем
+        // отредактированный Ольгой текст поста. В overrides (статус согласования)
+        // такие строки не попадают, у них своя ветка ниже.
+        if (row.item_id.indexOf('caption:') === 0) {
+          var postNo = +row.item_id.slice(8);
+          if (captions[postNo] !== row.status) { captions[postNo] = row.status; capChanged = true; }
+          return;
+        }
         if (overrides[row.item_id] !== row.status) { overrides[row.item_id] = row.status; changed = true; }
       });
-      if (changed) {
-        save();
+      if (changed) save();
+      if (capChanged) saveCaptions();
+      if (changed || capChanged) {
         renderCalendar(); renderNow(); renderProgress(); renderContent();
       }
     }).catch(function () {});
@@ -1031,6 +1047,12 @@ details.fold[open] summary svg { transform:rotate(180deg); }
       headers: syncHeaders({ Prefer: 'resolution=merge-duplicates' }),
       body: JSON.stringify([{ id: D.slug + ':' + itemId, client: D.slug, item_id: itemId, status: status }])
     }).catch(function () {});
+  }
+
+  // Текст поста синхронизируем той же таблицей — Кристине важно видеть, что
+  // Ольга поменяла подпись, без открытия каждого поста по отдельности.
+  function pushCaptionEdit(postNo, text) {
+    pushPostStatus('caption:' + postNo, text);
   }
 
   var CHK_KEY = STORE + '-checks';
@@ -1775,6 +1797,7 @@ details.fold[open] summary svg { transform:rotate(180deg); }
       el('capSave').addEventListener('click', function () {
         captions[p.post_no] = box.value;
         saveCaptions();
+        pushCaptionEdit(p.post_no, box.value);
         closeEditor();
       });
       // Отменить = закрыть редактор, ничего не сохраняя. Сохранённый текст не трогаем.
@@ -1932,6 +1955,7 @@ details.fold[open] summary svg { transform:rotate(180deg); }
           '<span class="cwork-meta">' +
             '<span class="badge ' + st + '">' + statusLabel(p, st) + '</span>' +
             '<span class="cwork-date">' + d.getDate() + ' ' + MONTHS_GEN[d.getMonth()] + '</span>' +
+            (isEdited(p) ? '<span class="cwork-edited">' + ICON.pencil + 'Текст изменён</span>' : '') +
           '</span>' +
         '</span>' +
         '<button class="cwork-open" data-openpost="' + p.post_no + '" aria-label="Открыть пост">' + ICON.chevR + '</button>' +
