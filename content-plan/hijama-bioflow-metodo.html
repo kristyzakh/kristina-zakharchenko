@@ -132,6 +132,7 @@ h3 { font-family:var(--head); font-weight:700; font-size:15px; margin:0; }
   background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--bar,var(--rule-strong));
   border-radius:11px; padding:13px 14px; margin-bottom:8px; transition:transform .12s ease;
 }
+.now-card.done { background:var(--st-done-bg); border-color:var(--st-done-line); }
 .now-card:active { transform:scale(.985); }
 .now-date {
   font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase;
@@ -1107,7 +1108,7 @@ details.fold[open] summary svg { transform:rotate(180deg); }
   function renderNow() {
     var upcoming = D.items.filter(function (it) {
       var d = parseISO(it.date);
-      return !isContentWork(it) && statusOf(it) !== 'done' && d >= weekStart;
+      return !isContentWork(it) && d >= weekStart;
     }).sort(function (a, b) { return a.date < b.date ? -1 : 1; }).slice(0, 4);
 
     if (!upcoming.length) {
@@ -1120,7 +1121,8 @@ details.fold[open] summary svg { transform:rotate(180deg); }
       var meta = it.kind === 'post'
         ? (it.format || '') + (it.modality ? ' · ' + it.modality : '')
         : (it.summary || '');
-      return '<button class="now-card" data-date="' + it.date + '" style="--bar:var(--st-' + st + ')">' +
+      return '<button class="now-card' + (st === 'done' ? ' done' : '') + '" data-date="' + it.date +
+        '" style="--bar:var(--st-' + st + ')">' +
         '<span class="now-date"><b>' + d.getDate() + '</b>' + DOW[(d.getDay() + 6) % 7] + '</span>' +
         '<span class="now-body">' +
           '<span class="now-title">' + esc(it.title) + '</span>' +
@@ -1392,7 +1394,7 @@ details.fold[open] summary svg { transform:rotate(180deg); }
     if (next === p.status) delete overrides[p._id]; else overrides[p._id] = next;
     save();
     // Сняли согласование — отметка «снято» больше не действует.
-    if (next === 'idea' && made[p.post_no]) { delete made[p.post_no]; saveMade(); }
+    if (next === 'idea' && !isPlanConfirmed() && made[p.post_no]) { delete made[p.post_no]; saveMade(); }
     renderCalendar(); renderNow(); renderProgress(); renderContent();
   }
 
@@ -1677,7 +1679,7 @@ details.fold[open] summary svg { transform:rotate(180deg); }
           b.className = 'badge ' + st;
           b.textContent = statusLabel(it, st);
         }
-        renderCalendar(); renderNow(); renderProgress();
+        renderCalendar(); renderNow(); renderProgress(); renderContent();
       });
     });
   }
@@ -1756,7 +1758,15 @@ details.fold[open] summary svg { transform:rotate(180deg); }
   var made = {};
   try { made = JSON.parse(localStorage.getItem(MADE_KEY) || '{}'); } catch (e) {}
   function saveMade() { try { localStorage.setItem(MADE_KEY, JSON.stringify(made)); } catch (e) {} }
-  function isMade(p) { return isApproved(p) && !!made[p.post_no]; }
+  function isMade(p) { return canWork(p) && !!made[p.post_no]; }
+
+  // Контент-план согласован целиком — замки в «Контенте» снимаются,
+  // даже если у отдельного поста статус ещё «На согласовании».
+  function isPlanConfirmed() {
+    var m = D.items.filter(function (x) { return x.action === 'feed'; })[0];
+    return !!m && statusOf(m) === 'done';
+  }
+  function canWork(p) { return isApproved(p) || isPlanConfirmed(); }
 
   function lockedSheet(p) {
     openSheet('Пост ' + p.post_no, 'Сначала согласуйте пост',
@@ -1777,7 +1787,7 @@ details.fold[open] summary svg { transform:rotate(180deg); }
 
     el('contentList').innerHTML = list.map(function (p) {
       var on = isMade(p);
-      var locked = !isApproved(p);
+      var locked = !canWork(p);
       var d = parseISO(p.date);
       var st = statusOf(p);
       return '<div class="cwork' + (on ? ' on' : '') + (locked ? ' locked' : '') +
@@ -1800,7 +1810,7 @@ details.fold[open] summary svg { transform:rotate(180deg); }
         if (e.target.closest('.cwork-open')) return;
         var p = list.filter(function (x) { return x.post_no === +row.dataset.postNo; })[0];
         if (!p) return;
-        if (!isApproved(p)) { lockedSheet(p); return; }
+        if (!canWork(p)) { lockedSheet(p); return; }
         if (made[p.post_no]) delete made[p.post_no]; else made[p.post_no] = true;
         saveMade();
         renderContent(); renderCalendar();
