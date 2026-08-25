@@ -100,7 +100,9 @@ h3 { font-family:var(--head); font-weight:700; font-size:15px; margin:0; }
 /* ---------- hero + progress ---------- */
 .hero { padding:22px 0 0; }
 .hero-top { display:flex; align-items:center; gap:16px; }
-.hero-top > div { min-width:0; flex:1; }
+/* :not(.ring) обязательно — иначе кольцо тоже получает flex:1, растягивается
+   и процент уезжает вправо от круга. */
+.hero-top > div:not(.ring) { min-width:0; flex:1; }
 .stage-chip {
   display:inline-flex; align-items:center; gap:6px; background:var(--accent-tint); color:var(--accent);
   border:1px solid var(--st-confirmed-line);
@@ -324,7 +326,18 @@ h3 { font-family:var(--head); font-weight:700; font-size:15px; margin:0; }
 /* ---------- references ---------- */
 .ref-scroll { display:flex; gap:9px; overflow-x:auto; margin:0 -18px; padding:0 18px 4px; scrollbar-width:none; }
 .ref-scroll::-webkit-scrollbar { display:none; }
-.ref-card { flex-shrink:0; width:176px; }
+.ref-card {
+  flex-shrink:0; width:176px; text-align:left; display:block;
+  background:none; border:none; padding:0; cursor:pointer;
+  transition:transform .12s ease;
+}
+.ref-card:active { transform:scale(.97); }
+.ref-card .rc-title, .ref-card .rc-note { display:block; }
+/* Картинка целиком, без обрезки — на телефоне это главный экран просмотра. */
+.ref-full {
+  width:100%; max-height:70vh; object-fit:contain; display:block;
+  border-radius:12px; border:1px solid var(--rule); background:var(--surface);
+}
 .ref-card img {
   width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:11px; border:1px solid var(--rule); display:block;
   background:var(--surface);
@@ -1878,12 +1891,24 @@ details.fold[open] summary svg { transform:rotate(180deg); }
 
   /* =============================== refs ============================== */
 
+  function openRef(i) {
+    var r = D.references[i];
+    if (!r) return;
+    openSheet('Референс', r.title,
+      '<img class="ref-full" src="' + r.src + '" alt="' + esc(r.title) + '">' +
+      '<p class="feed-note">' + esc(r.note) + '</p>');
+  }
+
   function renderRefs() {
-    el('refScroll').innerHTML = D.references.map(function (r) {
-      return '<div class="ref-card"><img src="' + r.src + '" alt="' + esc(r.title) + '" loading="lazy">' +
-        '<div class="rc-title">' + esc(r.title) + '</div>' +
-        '<div class="rc-note">' + esc(r.note) + '</div></div>';
+    el('refScroll').innerHTML = D.references.map(function (r, i) {
+      return '<button class="ref-card" data-ref="' + i + '">' +
+        '<img src="' + r.src + '" alt="' + esc(r.title) + '" loading="lazy">' +
+        '<span class="rc-title">' + esc(r.title) + '</span>' +
+        '<span class="rc-note">' + esc(r.note) + '</span></button>';
     }).join('');
+    el('refScroll').querySelectorAll('[data-ref]').forEach(function (b) {
+      b.addEventListener('click', function () { openRef(+b.dataset.ref); });
+    });
     el('refLinks').innerHTML = D.referenceLinks.map(function (l) {
       return '<a href="' + esc(l[1]) + '" target="_blank" rel="noopener">' + esc(l[0]) + ICON.ext + '</a>';
     }).join('');
