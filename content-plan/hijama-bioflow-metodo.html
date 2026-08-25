@@ -467,13 +467,7 @@ footer .sig { font-family:var(--mono); font-size:9.5px; letter-spacing:.09em; te
   font-family:var(--mono); font-size:10.5px; letter-spacing:.04em; color:var(--accent); text-decoration:none;
   border:1px solid var(--rule); border-radius:8px; padding:6px 10px; background:var(--ground);
 }
-/* ---------- sheet back ---------- */
-.sheet-back {
-  width:31px; height:31px; border-radius:999px; background:var(--surface); border:1px solid var(--rule);
-  display:none; place-items:center; flex-shrink:0; color:var(--text-2); margin-right:2px;
-}
-.sheet-back svg { width:12px; height:12px; }
-.sheet-head .sh-left { display:flex; align-items:center; gap:11px; min-width:0; flex:1; }
+.sheet-head .sh-left { min-width:0; flex:1; }
 
 /* ---------- action button in detail ---------- */
 .detail-action {
@@ -676,11 +670,13 @@ details.fold summary {
 details.fold summary::-webkit-details-marker { display:none; }
 .fold-t {
   display:flex; align-items:baseline; gap:10px; min-width:0;
-  font-family:var(--display); font-weight:700; font-size:19px; letter-spacing:-.02em;
+  font-family:var(--mono); font-weight:500; font-size:11px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--text-2);
 }
 details.fold summary svg { width:13px; height:13px; color:var(--text-3); transition:transform .2s ease; flex-shrink:0; }
 details.fold[open] summary svg { transform:rotate(180deg); }
 .fold-body { padding:0 12px 14px; }
+.section-head + .muted { margin-bottom:10px; }
 .fold-body .muted { margin:0 4px 10px; }
 
 /* ---------- блок «Контент» ---------- */
@@ -790,13 +786,14 @@ details.fold[open] summary svg { transform:rotate(180deg); }
       </div>
 
       <div class="section">
+        <div class="section-head"><h2>Контент</h2></div>
+        <p class="muted">Для Ольги. Один пост — одна задача, отметьте когда готово.</p>
         <details class="fold" id="contentFold">
           <summary>
-            <span class="fold-t">Контент<span class="sh-count" id="contentCount"></span></span>
+            <span class="fold-t" id="contentCount"></span>
             <span id="contentChev"></span>
           </summary>
           <div class="fold-body">
-            <p class="muted">Для Ольги. Один пост — одна задача, отметьте когда готово.</p>
             <div id="contentList"></div>
           </div>
         </details>
@@ -942,7 +939,6 @@ details.fold[open] summary svg { transform:rotate(180deg); }
 <div class="sheet" id="sheet" role="dialog" aria-modal="true">
   <div class="sheet-head">
     <div class="sh-left">
-      <button class="sheet-back" id="sheetBack" aria-label="Назад"></button>
       <div>
         <div class="sh-date" id="sheetDate"></div>
         <h2 id="sheetTitle"></h2>
@@ -1162,20 +1158,15 @@ details.fold[open] summary svg { transform:rotate(180deg); }
 
   var scrim = el('scrim'), sheet = el('sheet');
 
-  var backFn = null;
-
   function openSheet(dateLabel, title, bodyHtml, onBack) {
     el('sheetDate').textContent = dateLabel;
     el('sheetTitle').textContent = title;
     el('sheetBody').innerHTML = bodyHtml;
     el('sheetBody').scrollTop = 0;
-    backFn = onBack || null;
-    el('sheetBack').style.display = backFn ? 'grid' : 'none';
     scrim.classList.add('on');
     sheet.classList.add('on');
     document.body.style.overflow = 'hidden';
   }
-  el('sheetBack').addEventListener('click', function () { if (backFn) backFn(); });
   function closeSheet() {
     scrim.classList.remove('on');
     sheet.classList.remove('on');
@@ -1782,7 +1773,7 @@ details.fold[open] summary svg { transform:rotate(180deg); }
       .sort(function (a, b) { return a.post_no - b.post_no; });
 
     var done = list.filter(isMade).length;
-    el('contentCount').textContent = done + ' из ' + list.length;
+    el('contentCount').textContent = done + ' из ' + list.length + ' готово';
 
     el('contentList').innerHTML = list.map(function (p) {
       var on = isMade(p);
@@ -1934,7 +1925,6 @@ details.fold[open] summary svg { transform:rotate(180deg); }
   el('calPrev').innerHTML = ICON.chevL;
   el('calNext').innerHTML = ICON.chevR;
   el('sheetClose').innerHTML = ICON.close;
-  el('sheetBack').innerHTML = ICON.back;
   el('rulesChev').outerHTML = ICON.chevD;
   el('contentChev').outerHTML = ICON.chevD;
 
