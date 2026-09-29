@@ -6,22 +6,51 @@
    =========================================================================== */
 
 :root {
-  /* Surfaces */
-  --paper:      var(--kz-paper);
-  --paper-2:    var(--kz-paper-2);
-  --surface:    #FFFFFF;
-  --line:       var(--kz-line);
+  /* -------------------------------------------------------------------
+     ESPRESSO GROUND — site-level override, Sept 2026.
+     The site runs on a dark brown ground; brand/tokens.css is untouched and
+     still describes the cream system the brand book documents. Reconcile the
+     two before the next deck or proposal goes out, or revert by restoring the
+     var(--kz-*) mappings below.
 
-  /* Text */
-  --ink:        var(--kz-ink);
-  --ink-2:      var(--kz-graphite);
-  --ink-3:      var(--kz-smoke);
+     --ink and --paper are a FIGURE/GROUND PAIR, always used together
+     (background:var(--ink); color:var(--paper) and vice versa). Swapping both
+     inverts the whole site coherently — which is why --ink now holds cream.
+     Read them as "the page" and "what contrasts it", not as literal colours.
+     ------------------------------------------------------------------- */
 
-  /* Accent */
-  --accent:     var(--kz-magenta);
-  --accent-deep:var(--kz-magenta-deep);
+  /* Native select popups, scrollbars and Chrome's autofill follow this.
+     Without it they render light on the dark form and look broken. */
+  color-scheme: dark;
+
+  /* Surfaces — the espresso page */
+  --paper:      #241A14;   /* page ground        15.2:1 against --ink */
+  --paper-2:    #2A1E17;   /* panels, nav hover */
+  --surface:    #2E221B;   /* cards */
+  --line:       #3D2E25;
+
+  /* Text — cream figure on the espresso ground */
+  --ink:        #F6F1EA;   /* primary text       15.2:1 */
+  --ink-2:      #C4B5A8;   /* secondary          8.5:1  */
+  --ink-3:      #9A8A7C;   /* labels, captions   4.9:1  */
+
+  /* Accent — bubblegum, which only becomes readable type on a dark ground.
+     Magenta #C2246E manages just 3.1:1 here, so it cannot be used. */
+  --accent:     var(--kz-bubble);
+  --accent-deep:#FFC4E6;
+
+  /* Hero — the light block that inverts the page, so the top still snaps */
+  --hero-bg:     var(--kz-paper);
+  --hero-text:   var(--kz-ink);
+  --hero-text-2: var(--kz-graphite);
+  --hero-text-3: var(--kz-smoke);
+  --hero-line:   var(--kz-line);
+  --hero-accent: var(--kz-magenta);  /* bubblegum is 1.8:1 on cream — unusable */
   --fill-pink:  var(--kz-bubble);
   --fill-yellow:var(--kz-butter);
+  /* Bubblegum and butter are the same colour whichever ground the page uses,
+     so text on them is ALWAYS literal ink — never var(--ink), which inverts. */
+  --on-fill:    var(--kz-ink);
 
   /* Ink ground */
   --ink-bg:     var(--kz-ink-bg);
@@ -145,7 +174,7 @@ a { color: inherit; }
 }
 /* The one yellow spark on the page — the number that matters most. */
 .stat--spark {
-  color: var(--ink);
+  color: var(--on-fill);
   background: var(--fill-yellow);
   padding: 1px 6px;
   border-radius: 3px;
@@ -241,13 +270,14 @@ a { color: inherit; }
 }
 .btn-ghost:hover { border-color: var(--ink); }
 
-/* ===== Hero — the ink cover ===== */
+/* ===== Hero — the cream cover, inverted against the espresso page ===== */
 .hero {
-  background: var(--ink-bg);
-  color: var(--ink-text);
+  color-scheme: light;
+  background: var(--hero-bg);
+  color: var(--hero-text);
   padding: clamp(48px, 7vw, 92px) 0 0;
 }
-.hero .eyebrow { color: #9A8F88; }
+.hero .eyebrow { color: var(--hero-text-3); }
 
 .hero-mark { width: clamp(104px, 14vw, 150px); margin-bottom: clamp(28px, 4vw, 44px); }
 .hero-mark img { width: 100%; height: auto; display: block; }
@@ -262,12 +292,14 @@ a { color: inherit; }
   max-width: 15ch;
   text-wrap: balance;
 }
-/* Bubblegum as type is allowed only here: very large, on an ink ground. */
-.hero-headline em { font-style: normal; color: var(--fill-pink); }
+/* The hero ground is cream, so the emphasis takes magenta. Bubblegum is
+   1.8:1 here — it stays a fill. On the espresso page below, the rule flips
+   and bubblegum becomes the readable accent. */
+.hero-headline em { font-style: normal; color: var(--hero-accent); }
 
 .hero-sub {
   font-size: clamp(16px, 1.5vw, 18.5px);
-  color: var(--ink-text-2);
+  color: var(--hero-text-2);
   max-width: 58ch;
   margin: 0 0 clamp(26px, 3.4vw, 36px);
 }
@@ -278,10 +310,10 @@ a { color: inherit; }
   flex-wrap: wrap;
   margin-bottom: clamp(40px, 6vw, 64px);
 }
-.hero .btn-primary { background: var(--paper); color: var(--ink); }
-.hero .btn-primary:hover { background: var(--fill-pink); color: var(--ink); }
-.hero .btn-ghost { color: var(--ink-text); border-color: #4A3F39; }
-.hero .btn-ghost:hover { border-color: var(--ink-text); }
+.hero .btn-primary { background: var(--hero-text); color: var(--hero-bg); }
+.hero .btn-primary:hover { background: var(--fill-pink); color: var(--on-fill); }
+.hero .btn-ghost { color: var(--hero-text); border-color: var(--hero-text-3); }
+.hero .btn-ghost:hover { border-color: var(--hero-text); }
 
 /* ===== Pacing bar (structural motif, from the brand book's rule-pace) ===== */
 .pacing-bar {
@@ -307,6 +339,9 @@ a { color: inherit; }
   background: #6B5E57;
 }
 .pacing-bar--sm { max-width: 220px; height: 2px; background: var(--line); }
+/* The full-width pacing bar and the KPI row sit inside the cream hero. */
+.hero .pacing-bar { background: var(--hero-line); }
+.hero .pacing-tick { background: var(--hero-text-3); }
 
 .divider { padding: clamp(40px, 6vw, 64px) 0; }
 
@@ -325,7 +360,7 @@ a { color: inherit; }
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #9A8F88;
+  color: var(--hero-text-3);
   margin-bottom: 8px;
 }
 .kpi dd {
@@ -335,7 +370,7 @@ a { color: inherit; }
   font-size: clamp(19px, 2.1vw, 27px);
   letter-spacing: -0.03em;
   line-height: 1;
-  color: var(--ink-text);
+  color: var(--hero-text);
   font-variant-numeric: tabular-nums;
 }
 
@@ -431,7 +466,8 @@ a { color: inherit; }
 /* The leak: bubblegum as a fill, ink on top. */
 .system-flow li.is-leak { background: var(--fill-pink); border-color: var(--fill-pink); }
 .system-flow li.is-leak .flow-no,
-.system-flow li.is-leak > span:last-child { color: var(--ink); }
+.system-flow li.is-leak > span:last-child,
+.system-flow li.is-leak strong { color: var(--on-fill); }
 .flow-note {
   margin: 16px 0 clamp(36px, 5vw, 56px);
   font-size: 15px;
@@ -554,7 +590,7 @@ a { color: inherit; }
   padding-top: 4px;
 }
 .case-row p { margin: 0; color: var(--ink-2); }
-.case-row strong { color: var(--ink); }
+.case-row strong:not(.stat) { color: var(--ink); }
 
 /* ===== Also-in-background note ===== */
 .also {
@@ -579,7 +615,7 @@ a { color: inherit; }
   font-size: 14.5px;
   color: var(--ink-2);
 }
-.also-text strong { color: var(--ink); font-weight: 600; }
+.also-text strong:not(.stat) { color: var(--ink); font-weight: 600; }
 
 /* ===== Competencies ===== */
 .comp-grid {
