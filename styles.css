@@ -190,6 +190,25 @@ a { color: inherit; }
   transition: color 0.15s ease, background 0.15s ease;
 }
 .site-nav a:hover { color: var(--ink); background: var(--paper-2); }
+/* EN / UA switcher */
+.lang-switch {
+  display: inline-flex;
+  margin-left: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px;
+}
+.site-nav .lang-switch a {
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.site-nav .lang-switch a[aria-current="page"] {
+  color: var(--ink);
+  background: var(--paper-2);
+}
+
 .nav-cta {
   color: var(--paper) !important;
   background: var(--ink);
@@ -1226,7 +1245,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 640px) {
-  .site-nav a:not(.nav-cta) { display: none; }
+  .site-nav > a:not(.nav-cta) { display: none; }
   /* The header mark is already in view at this width — one KZ. per screen. */
   .hero-mark { display: none; }
   .service-row { grid-template-columns: 1fr; gap: 6px; }

@@ -1,3 +1,7 @@
+// The Ukrainian page sets <html lang="uk">; everything else is English.
+const UK = document.documentElement.lang === 'uk';
+const tr = (en, uk) => (UK ? uk : en);
+
 // Count-up animation for hero KPI ticker
 function animateCountUp(el) {
   const target = parseFloat(el.dataset.target);
@@ -100,13 +104,16 @@ if (form) {
     const need = document.getElementById('need').value;
     const budget = document.getElementById('budget').value;
 
-    const subject = encodeURIComponent(`Project inquiry from ${name}`);
-    const details = [need && `Looking for: ${need}`, budget && `Monthly ad budget: ${budget}`].filter(Boolean).join('\n');
+    const subject = encodeURIComponent(tr(`Project inquiry from ${name}`, `Запит на співпрацю від ${name}`));
+    const details = [
+      need && tr('Looking for: ', 'Потрібно: ') + need,
+      budget && tr('Monthly ad budget: ', 'Рекламний бюджет на місяць: ') + budget,
+    ].filter(Boolean).join('\n');
     const body = encodeURIComponent(`${details ? details + '\n\n' : ''}${message}\n\n— ${name} (${email})`);
     window.location.href = `mailto:kristyzakharchenko@gmail.com?subject=${subject}&body=${body}`;
 
     const note = document.getElementById('form-note');
-    note.textContent = 'Opening your email app now...';
+    note.textContent = tr('Opening your email app now...', 'Відкриваю вашу пошту…');
   });
 }
 
@@ -115,8 +122,11 @@ if (form) {
   const dash = document.getElementById('dash');
   if (!dash) return;
 
-  const WEEKS = ['Jul 6', 'Jul 13', 'Jul 20', 'Jul 27', 'Aug 3', 'Aug 10',
-                 'Aug 17', 'Aug 24', 'Aug 31', 'Sep 7', 'Sep 14', 'Sep 21'];
+  const WEEKS = UK
+    ? ['6 лип', '13 лип', '20 лип', '27 лип', '3 серп', '10 серп',
+       '17 серп', '24 серп', '31 серп', '7 вер', '14 вер', '21 вер']
+    : ['Jul 6', 'Jul 13', 'Jul 20', 'Jul 27', 'Aug 3', 'Aug 10',
+       'Aug 17', 'Aug 24', 'Aug 31', 'Sep 7', 'Sep 14', 'Sep 21'];
 
   // Sample numbers only. Spend in $K per week.
   const DATA = {
@@ -155,10 +165,15 @@ if (form) {
     return n;
   };
   const sum = (a) => a.reduce((x, y) => x + y, 0);
-  const money = (k) => '$' + (k >= 1000 ? (k / 1000).toFixed(2) + 'M' : k.toFixed(1) + 'K');
-  const int = (n) => Math.round(n).toLocaleString('en-US');
+  // Ukrainian: decimal comma, space for thousands.
+  const dec = (v, d) => (UK ? v.toFixed(d).replace('.', ',') : v.toFixed(d));
+  const int = (n) => Math.round(n).toLocaleString(UK ? 'uk-UA' : 'en-US');
+  const money = (k) => '$' + (k >= 1000 ? dec(k / 1000, 2) + 'M' : dec(k, 1) + 'K');
+  const usd = (v, d) => '$' + dec(v, d);
 
-  const STATUS_LABEL = { ok: 'On track', watch: 'Watch', risk: 'At risk' };
+  const STATUS_LABEL = UK
+    ? { ok: 'У нормі', watch: 'Увага', risk: 'Ризик' }
+    : { ok: 'On track', watch: 'Watch', risk: 'At risk' };
   const statusHigherBetter = (v, t) => (v >= t ? 'ok' : v >= t * 0.9 ? 'watch' : 'risk');
   const statusLowerBetter = (v, t) => (v <= t ? 'ok' : v <= t * 1.15 ? 'watch' : 'risk');
   const statusEl = (s) => el('span', 'status status--' + s, STATUS_LABEL[s]);
@@ -177,33 +192,41 @@ if (form) {
     const from = WEEKS.length - state.range;
     const weeks = WEEKS.slice(from);
     const spend = d.spend.slice(from);
+    const rangeLabel = state.range + tr(' weeks', ' тижнів');
 
     if (state.mode === 'ecom') {
       const roasW = d.roas.slice(from);
       const revenue = sum(spend.map((s, i) => s * roasW[i]));
       const totalSpend = sum(spend);
       const roas = revenue / totalSpend;
+      const target = dec(d.target, 1);
+      const change = roasW.at(-1) - roasW[0];
       return {
         weeks, series: roasW, target: d.target,
-        fmt: (v) => v.toFixed(2),
-        targetLabel: 'Target ' + d.target.toFixed(1),
-        title: 'Weekly ROAS', note: 'Revenue ÷ ad spend · target ' + d.target.toFixed(1),
+        fmt: (v) => dec(v, 2),
+        targetLabel: tr('Target ', 'Ціль ') + target,
+        title: tr('Weekly ROAS', 'ROAS по тижнях'),
+        note: tr('Revenue ÷ ad spend · target ', 'Дохід ÷ витрати на рекламу · ціль ') + target,
         kpis: [
-          { label: 'Ad spend', value: money(totalSpend), sub: state.range + ' weeks' },
-          { label: 'Revenue', value: money(revenue), sub: 'From paid channels' },
-          { label: 'Blended ROAS', value: roas.toFixed(2), sub: 'Target ' + d.target.toFixed(1), status: statusHigherBetter(roas, d.target) },
-          { label: 'ROAS change', value: (roasW.at(-1) - roasW[0] >= 0 ? '+' : '') + (roasW.at(-1) - roasW[0]).toFixed(2), sub: weeks[0] + ' → ' + weeks.at(-1) },
+          { label: tr('Ad spend', 'Витрати на рекламу'), value: money(totalSpend), sub: rangeLabel },
+          { label: tr('Revenue', 'Дохід'), value: money(revenue), sub: tr('From paid channels', 'З платних каналів') },
+          { label: tr('Blended ROAS', 'Загальний ROAS'), value: dec(roas, 2), sub: tr('Target ', 'Ціль ') + target, status: statusHigherBetter(roas, d.target) },
+          { label: tr('ROAS change', 'Зміна ROAS'), value: (change >= 0 ? '+' : '') + dec(change, 2), sub: weeks[0] + ' → ' + weeks.at(-1) },
         ],
-        channelHead: ['Channel', 'Spend', 'ROAS', 'Status'],
+        channelHead: tr(['Channel', 'Spend', 'ROAS', 'Status'], ['Канал', 'Витрати', 'ROAS', 'Статус']),
         channels: d.channels.map((c) => {
           const r = roas * c.ratio;
-          return { name: c.name, spend: money(totalSpend * c.spend), metric: r.toFixed(2), status: statusHigherBetter(r, d.target), raw: r };
+          return { name: c.name, spend: money(totalSpend * c.spend), metric: dec(r, 2), status: statusHigherBetter(r, d.target), raw: r };
         }),
         notes: (ch) => {
           const google = ch.find((c) => c.name === 'Google');
           const tiktok = ch.find((c) => c.name === 'TikTok');
-          return [
-            ['Blended ROAS is ', { b: roas.toFixed(2) }, roas >= d.target ? ', above the ' : ', below the ', d.target.toFixed(1) + ' target, and up from ' + roasW[0].toFixed(2) + ' in the first week of this range.'],
+          return UK ? [
+            ['Загальний ROAS — ', { b: dec(roas, 2) }, (roas >= d.target ? ', вище' : ', нижче') + ' цілі ' + target + ' і зріс з ' + dec(roasW[0], 2) + ' у перший тиждень цього періоду.'],
+            ['TikTok дає ', { b: tiktok.metric }, ' проти ' + google.metric + ' у Google. Переношу близько 15% бюджету TikTok у Google Shopping і перевіряю результат за два тижні.'],
+            ['Наступний тест: ', { b: 'два нові креативні підходи в Meta' }, ', де сидить більша частина бюджету.'],
+          ] : [
+            ['Blended ROAS is ', { b: dec(roas, 2) }, roas >= d.target ? ', above the ' : ', below the ', target + ' target, and up from ' + dec(roasW[0], 2) + ' in the first week of this range.'],
             ['TikTok returns ', { b: tiktok.metric }, ' against Google’s ' + google.metric + '. I’m moving about 15% of TikTok budget into Google Shopping and re-checking in two weeks.'],
             ['Next test: ', { b: 'two new creative angles on Meta' }, ', where most of the budget sits.'],
           ];
@@ -220,26 +243,32 @@ if (form) {
     const qual = sum(leadsW.map((l, i) => l * qualW[i])) / leads;
     return {
       weeks, series: cplW, target: d.target,
-      fmt: (v) => '$' + v.toFixed(0),
-      targetLabel: 'Target $' + d.target,
-      title: 'Weekly cost per lead', note: 'Lower is better · target $' + d.target,
+      fmt: (v) => usd(v, 0),
+      targetLabel: tr('Target $', 'Ціль $') + d.target,
+      title: tr('Weekly cost per lead', 'Вартість ліда по тижнях'),
+      note: tr('Lower is better · target $', 'Що нижче, то краще · ціль $') + d.target,
       kpis: [
-        { label: 'Ad spend', value: money(totalSpend), sub: state.range + ' weeks' },
-        { label: 'Leads', value: int(leads), sub: int(leads * qual) + ' qualified' },
-        { label: 'Cost per lead', value: '$' + cpl.toFixed(2), sub: 'Target $' + d.target, status: statusLowerBetter(cpl, d.target) },
-        { label: 'Qualified rate', value: Math.round(qual * 100) + '%', sub: 'Passed pre-qualification' },
+        { label: tr('Ad spend', 'Витрати на рекламу'), value: money(totalSpend), sub: rangeLabel },
+        { label: tr('Leads', 'Ліди'), value: int(leads), sub: int(leads * qual) + tr(' qualified', ' кваліфікованих') },
+        { label: tr('Cost per lead', 'Вартість ліда'), value: usd(cpl, 2), sub: tr('Target $', 'Ціль $') + d.target, status: statusLowerBetter(cpl, d.target) },
+        { label: tr('Qualified rate', 'Частка кваліфікованих'), value: Math.round(qual * 100) + '%', sub: tr('Passed pre-qualification', 'Пройшли попередню кваліфікацію') },
       ],
-      channelHead: ['Channel', 'Spend', 'CPL', 'Status'],
+      channelHead: tr(['Channel', 'Spend', 'CPL', 'Status'], ['Канал', 'Витрати', 'CPL', 'Статус']),
       channels: d.channels.map((c) => {
         const v = cpl * (c.spend / c.leads);
-        return { name: c.name, spend: money(totalSpend * c.spend), metric: '$' + v.toFixed(2), status: statusLowerBetter(v, d.target), raw: v };
+        return { name: c.name, spend: money(totalSpend * c.spend), metric: usd(v, 2), status: statusLowerBetter(v, d.target), raw: v };
       }),
       notes: (ch) => {
         const meta = ch.find((c) => c.name === 'Meta');
         const tiktok = ch.find((c) => c.name === 'TikTok');
-        return [
-          ['Cost per lead is ', { b: '$' + cpl.toFixed(2) }, cpl <= d.target ? ', inside the $' + d.target + ' target.' : ', still above the $' + d.target + ' target, but falling every week: from $' + cplW[0] + ' to $' + cplW.at(-1) + '.'],
-          ['TikTok leads cost ', { b: tiktok.metric }, ', ' + (tiktok.raw / meta.raw).toFixed(1) + '× Meta’s. Pausing the two weakest ads and refreshing creative before adding budget.'],
+        const times = dec(tiktok.raw / meta.raw, 1);
+        return UK ? [
+          ['Вартість ліда — ', { b: usd(cpl, 2) }, cpl <= d.target ? ', в межах цілі $' + d.target + '.' : ', поки вище цілі $' + d.target + ', але знижується щотижня: з $' + cplW[0] + ' до $' + cplW.at(-1) + '.'],
+          ['Ліди з TikTok коштують ', { b: tiktok.metric }, ', у ' + times + ' раза дорожче, ніж у Meta. Вимикаю два найслабші оголошення й оновлюю креативи, перш ніж додавати бюджет.'],
+          ['Частка кваліфікованих — ', { b: Math.round(qual * 100) + '%' }, '. Питання для попередньої кваліфікації у формі працює, тож залишаємо його.'],
+        ] : [
+          ['Cost per lead is ', { b: usd(cpl, 2) }, cpl <= d.target ? ', inside the $' + d.target + ' target.' : ', still above the $' + d.target + ' target, but falling every week: from $' + cplW[0] + ' to $' + cplW.at(-1) + '.'],
+          ['TikTok leads cost ', { b: tiktok.metric }, ', ' + times + '× Meta’s. Pausing the two weakest ads and refreshing creative before adding budget.'],
           ['Qualified rate is ', { b: Math.round(qual * 100) + '%' }, '. The pre-qualification question on the form is working, so it stays.'],
         ];
       },
@@ -270,12 +299,12 @@ if (form) {
     const thead = el('thead'); thead.appendChild(head); t.appendChild(thead);
     const tbody = el('tbody');
     v.channels.forEach((c) => {
-      const tr = el('tr');
-      tr.appendChild(el('td', null, c.name));
-      tr.appendChild(el('td', null, c.spend));
-      tr.appendChild(el('td', null, c.metric));
-      const td = el('td'); td.appendChild(statusEl(c.status)); tr.appendChild(td);
-      tbody.appendChild(tr);
+      const row = el('tr');
+      row.appendChild(el('td', null, c.name));
+      row.appendChild(el('td', null, c.spend));
+      row.appendChild(el('td', null, c.metric));
+      const td = el('td'); td.appendChild(statusEl(c.status)); row.appendChild(td);
+      tbody.appendChild(row);
     });
     t.appendChild(tbody);
   }
@@ -288,13 +317,13 @@ if (form) {
   function renderTable(v) {
     const t = $('dash-table');
     t.replaceChildren();
-    t.appendChild(el('caption', null, v.title + ' (sample data)'));
+    t.appendChild(el('caption', null, v.title + tr(' (sample data)', ' (демо-дані)')));
     v.weeks.forEach((w, i) => {
-      const tr = el('tr');
-      const th = el('th', null, 'Week of ' + w); th.scope = 'row';
-      tr.appendChild(th);
-      tr.appendChild(el('td', null, v.fmt(v.series[i])));
-      t.appendChild(tr);
+      const row = el('tr');
+      const th = el('th', null, tr('Week of ', 'Тиждень ') + w); th.scope = 'row';
+      row.appendChild(th);
+      row.appendChild(el('td', null, v.fmt(v.series[i])));
+      t.appendChild(row);
     });
   }
 
@@ -333,7 +362,8 @@ if (form) {
     const y = (val) => m.top + ph - ((val - y0) / (y1 - y0)) * ph;
 
     const svg = svgEl('svg', { width: W, height: H, tabindex: 0, role: 'group',
-      'aria-label': v.title + ', sample data. Use left and right arrow keys to read each week.' });
+      'aria-label': v.title + tr(', sample data. Use left and right arrow keys to read each week.',
+        ', демо-дані. Стрілки вліво та вправо — перегляд по тижнях.') });
 
     // Recessive grid + y labels
     for (let t = y0; t <= y1 + 1e-9; t += step) {
@@ -395,7 +425,7 @@ if (form) {
       tip.appendChild(el('strong', null, v.fmt(v.series[i])));
       const row = el('span');
       row.appendChild(el('span', 'tip-key'));
-      row.appendChild(document.createTextNode('Week of ' + v.weeks[i] + ' · ' + v.targetLabel.toLowerCase()));
+      row.appendChild(document.createTextNode(tr('Week of ', 'Тиждень ') + v.weeks[i] + ' · ' + v.targetLabel.toLowerCase()));
       tip.appendChild(row);
       tip.classList.add('is-on');
       const tw = tip.offsetWidth;

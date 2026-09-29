@@ -32,6 +32,17 @@ The brand book sits at `/brand/brand-book.html` and carries a `noindex` tag — 
 by anyone with the link, but not indexed and not linked from the site. To surface it
 publicly, uncomment the footer link in `index.html`.
 
+## Two languages
+
+English lives at `index.html`, Ukrainian at `ua/index.html`. They share `styles.css`
+and `script.js`, and the EN / UA switcher in the header links them. The pages have the
+same structure, so **when you change one, make the same change in the other**.
+
+`ua/index.html` sets `lang="uk"`. That swaps headings to Golos Text and switches the
+reporting dashboard and contact form in `script.js` to Ukrainian (labels, notes,
+decimal comma, space for thousands). Dashboard strings sit side by side in
+`tr('English', 'Українська')` calls.
+
 ## Updating content
 
 - Copy/results: edit `index.html` directly (each case study is one `<article class="case">` block).
