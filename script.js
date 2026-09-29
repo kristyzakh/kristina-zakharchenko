@@ -35,7 +35,7 @@ function animateCountUp(el) {
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Reveal-on-scroll for pacing bars and case/job elements
-const revealTargets = document.querySelectorAll('.pacing-bar, .case, .situation-log li');
+const revealTargets = document.querySelectorAll('.pacing-bar, .case, .situation-log li, .step, .format');
 revealTargets.forEach((el) => el.classList.add('reveal'));
 
 const io = new IntersectionObserver((entries) => {
@@ -97,12 +97,361 @@ if (form) {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const message = document.getElementById('message').value.trim();
+    const need = document.getElementById('need').value;
+    const budget = document.getElementById('budget').value;
 
     const subject = encodeURIComponent(`Project inquiry from ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    const details = [need && `Looking for: ${need}`, budget && `Monthly ad budget: ${budget}`].filter(Boolean).join('\n');
+    const body = encodeURIComponent(`${details ? details + '\n\n' : ''}${message}\n\n— ${name} (${email})`);
     window.location.href = `mailto:kristyzakharchenko@gmail.com?subject=${subject}&body=${body}`;
 
     const note = document.getElementById('form-note');
     note.textContent = 'Opening your email app now...';
   });
 }
+
+// ===== Reporting demo dashboard (sample data) =====
+(function initDashboard() {
+  const dash = document.getElementById('dash');
+  if (!dash) return;
+
+  const WEEKS = ['Jul 6', 'Jul 13', 'Jul 20', 'Jul 27', 'Aug 3', 'Aug 10',
+                 'Aug 17', 'Aug 24', 'Aug 31', 'Sep 7', 'Sep 14', 'Sep 21'];
+
+  // Sample numbers only. Spend in $K per week.
+  const DATA = {
+    ecom: {
+      spend: [18.0, 18.5, 19.0, 19.2, 20.0, 20.5, 21.0, 21.5, 22.0, 23.0, 23.5, 24.0],
+      roas:  [2.50, 2.55, 2.65, 2.80, 2.85, 3.00, 3.10, 3.20, 3.15, 3.30, 3.40, 3.50],
+      target: 3.0,
+      // share of spend, and each channel's ROAS relative to blended
+      channels: [
+        { name: 'Meta',   spend: 0.55, ratio: 1.00 },
+        { name: 'Google', spend: 0.30, ratio: 1.15 },
+        { name: 'TikTok', spend: 0.15, ratio: 0.70 },
+      ],
+    },
+    lead: {
+      spend: [4.0, 4.1, 4.2, 4.2, 4.4, 4.5, 4.5, 4.6, 4.8, 4.8, 5.0, 5.0],
+      cpl:   [38, 36, 34, 33, 31, 29, 28, 27, 26, 24, 23, 22],
+      qual:  [0.40, 0.41, 0.42, 0.44, 0.45, 0.47, 0.48, 0.50, 0.51, 0.52, 0.54, 0.55],
+      target: 25,
+      // share of spend and share of leads
+      channels: [
+        { name: 'Meta',   spend: 0.60, leads: 0.66 },
+        { name: 'Google', spend: 0.30, leads: 0.28 },
+        { name: 'TikTok', spend: 0.10, leads: 0.06 },
+      ],
+    },
+  };
+
+  const state = { mode: 'ecom', range: 12, hover: null };
+
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  };
+  const sum = (a) => a.reduce((x, y) => x + y, 0);
+  const money = (k) => '$' + (k >= 1000 ? (k / 1000).toFixed(2) + 'M' : k.toFixed(1) + 'K');
+  const int = (n) => Math.round(n).toLocaleString('en-US');
+
+  const STATUS_LABEL = { ok: 'On track', watch: 'Watch', risk: 'At risk' };
+  const statusHigherBetter = (v, t) => (v >= t ? 'ok' : v >= t * 0.9 ? 'watch' : 'risk');
+  const statusLowerBetter = (v, t) => (v <= t ? 'ok' : v <= t * 1.15 ? 'watch' : 'risk');
+  const statusEl = (s) => el('span', 'status status--' + s, STATUS_LABEL[s]);
+
+  // Rich text from parts: strings stay plain, {b: '...'} becomes <strong>.
+  function rich(parts) {
+    const li = el('li');
+    const body = el('span');
+    parts.forEach((p) => body.appendChild(typeof p === 'string' ? document.createTextNode(p) : el('strong', null, p.b)));
+    li.appendChild(body);
+    return li;
+  }
+
+  function compute() {
+    const d = DATA[state.mode];
+    const from = WEEKS.length - state.range;
+    const weeks = WEEKS.slice(from);
+    const spend = d.spend.slice(from);
+
+    if (state.mode === 'ecom') {
+      const roasW = d.roas.slice(from);
+      const revenue = sum(spend.map((s, i) => s * roasW[i]));
+      const totalSpend = sum(spend);
+      const roas = revenue / totalSpend;
+      return {
+        weeks, series: roasW, target: d.target,
+        fmt: (v) => v.toFixed(2),
+        targetLabel: 'Target ' + d.target.toFixed(1),
+        title: 'Weekly ROAS', note: 'Revenue ÷ ad spend · target ' + d.target.toFixed(1),
+        kpis: [
+          { label: 'Ad spend', value: money(totalSpend), sub: state.range + ' weeks' },
+          { label: 'Revenue', value: money(revenue), sub: 'From paid channels' },
+          { label: 'Blended ROAS', value: roas.toFixed(2), sub: 'Target ' + d.target.toFixed(1), status: statusHigherBetter(roas, d.target) },
+          { label: 'ROAS change', value: (roasW.at(-1) - roasW[0] >= 0 ? '+' : '') + (roasW.at(-1) - roasW[0]).toFixed(2), sub: weeks[0] + ' → ' + weeks.at(-1) },
+        ],
+        channelHead: ['Channel', 'Spend', 'ROAS', 'Status'],
+        channels: d.channels.map((c) => {
+          const r = roas * c.ratio;
+          return { name: c.name, spend: money(totalSpend * c.spend), metric: r.toFixed(2), status: statusHigherBetter(r, d.target), raw: r };
+        }),
+        notes: (ch) => {
+          const google = ch.find((c) => c.name === 'Google');
+          const tiktok = ch.find((c) => c.name === 'TikTok');
+          return [
+            ['Blended ROAS is ', { b: roas.toFixed(2) }, roas >= d.target ? ', above the ' : ', below the ', d.target.toFixed(1) + ' target, and up from ' + roasW[0].toFixed(2) + ' in the first week of this range.'],
+            ['TikTok returns ', { b: tiktok.metric }, ' against Google’s ' + google.metric + '. I’m moving about 15% of TikTok budget into Google Shopping and re-checking in two weeks.'],
+            ['Next test: ', { b: 'two new creative angles on Meta' }, ', where most of the budget sits.'],
+          ];
+        },
+      };
+    }
+
+    const cplW = d.cpl.slice(from);
+    const qualW = d.qual.slice(from);
+    const leadsW = spend.map((s, i) => (s * 1000) / cplW[i]);
+    const leads = sum(leadsW);
+    const totalSpend = sum(spend);
+    const cpl = (totalSpend * 1000) / leads;
+    const qual = sum(leadsW.map((l, i) => l * qualW[i])) / leads;
+    return {
+      weeks, series: cplW, target: d.target,
+      fmt: (v) => '$' + v.toFixed(0),
+      targetLabel: 'Target $' + d.target,
+      title: 'Weekly cost per lead', note: 'Lower is better · target $' + d.target,
+      kpis: [
+        { label: 'Ad spend', value: money(totalSpend), sub: state.range + ' weeks' },
+        { label: 'Leads', value: int(leads), sub: int(leads * qual) + ' qualified' },
+        { label: 'Cost per lead', value: '$' + cpl.toFixed(2), sub: 'Target $' + d.target, status: statusLowerBetter(cpl, d.target) },
+        { label: 'Qualified rate', value: Math.round(qual * 100) + '%', sub: 'Passed pre-qualification' },
+      ],
+      channelHead: ['Channel', 'Spend', 'CPL', 'Status'],
+      channels: d.channels.map((c) => {
+        const v = cpl * (c.spend / c.leads);
+        return { name: c.name, spend: money(totalSpend * c.spend), metric: '$' + v.toFixed(2), status: statusLowerBetter(v, d.target), raw: v };
+      }),
+      notes: (ch) => {
+        const meta = ch.find((c) => c.name === 'Meta');
+        const tiktok = ch.find((c) => c.name === 'TikTok');
+        return [
+          ['Cost per lead is ', { b: '$' + cpl.toFixed(2) }, cpl <= d.target ? ', inside the $' + d.target + ' target.' : ', still above the $' + d.target + ' target, but falling every week: from $' + cplW[0] + ' to $' + cplW.at(-1) + '.'],
+          ['TikTok leads cost ', { b: tiktok.metric }, ', ' + (tiktok.raw / meta.raw).toFixed(1) + '× Meta’s. Pausing the two weakest ads and refreshing creative before adding budget.'],
+          ['Qualified rate is ', { b: Math.round(qual * 100) + '%' }, '. The pre-qualification question on the form is working, so it stays.'],
+        ];
+      },
+    };
+  }
+
+  function renderKpis(v) {
+    const box = $('dash-kpis');
+    box.replaceChildren();
+    v.kpis.forEach((k) => {
+      const wrap = el('div', 'dash-kpi');
+      wrap.appendChild(el('dt', null, k.label));
+      const dd = el('dd');
+      dd.appendChild(el('span', 'dash-kpi-value', k.value));
+      const sub = el('span', 'dash-kpi-sub', k.sub);
+      if (k.status) sub.appendChild(statusEl(k.status));
+      dd.appendChild(sub);
+      wrap.appendChild(dd);
+      box.appendChild(wrap);
+    });
+  }
+
+  function renderChannels(v) {
+    const t = $('dash-channels');
+    t.replaceChildren();
+    const head = el('tr');
+    v.channelHead.forEach((h) => { const th = el('th', null, h); th.scope = 'col'; head.appendChild(th); });
+    const thead = el('thead'); thead.appendChild(head); t.appendChild(thead);
+    const tbody = el('tbody');
+    v.channels.forEach((c) => {
+      const tr = el('tr');
+      tr.appendChild(el('td', null, c.name));
+      tr.appendChild(el('td', null, c.spend));
+      tr.appendChild(el('td', null, c.metric));
+      const td = el('td'); td.appendChild(statusEl(c.status)); tr.appendChild(td);
+      tbody.appendChild(tr);
+    });
+    t.appendChild(tbody);
+  }
+
+  function renderNotes(v) {
+    const ol = $('dash-notes');
+    ol.replaceChildren(...v.notes(v.channels).map(rich));
+  }
+
+  function renderTable(v) {
+    const t = $('dash-table');
+    t.replaceChildren();
+    t.appendChild(el('caption', null, v.title + ' (sample data)'));
+    v.weeks.forEach((w, i) => {
+      const tr = el('tr');
+      const th = el('th', null, 'Week of ' + w); th.scope = 'row';
+      tr.appendChild(th);
+      tr.appendChild(el('td', null, v.fmt(v.series[i])));
+      t.appendChild(tr);
+    });
+  }
+
+  function niceStep(span) {
+    const raw = span / 4;
+    const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    const n = raw / mag;
+    return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * mag;
+  }
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const svgEl = (tag, attrs) => {
+    const n = document.createElementNS(NS, tag);
+    Object.entries(attrs || {}).forEach(([k, val]) => n.setAttribute(k, val));
+    return n;
+  };
+
+  function renderChart(v) {
+    const box = $('dash-chart');
+    box.replaceChildren();
+    const W = box.clientWidth;
+    const H = box.clientHeight;
+    if (!W || !H) return;
+
+    const m = { top: 14, right: 52, bottom: 28, left: 42 };
+    const pw = W - m.left - m.right;
+    const ph = H - m.top - m.bottom;
+
+    const lo = Math.min(...v.series, v.target);
+    const hi = Math.max(...v.series, v.target);
+    const step = niceStep(hi - lo);
+    const y0 = Math.floor(lo / step) * step - (lo % step === 0 ? step : 0);
+    const y1 = Math.ceil(hi / step) * step + (hi % step === 0 ? step : 0);
+    const n = v.series.length;
+    const x = (i) => m.left + (n === 1 ? pw / 2 : (i / (n - 1)) * pw);
+    const y = (val) => m.top + ph - ((val - y0) / (y1 - y0)) * ph;
+
+    const svg = svgEl('svg', { width: W, height: H, tabindex: 0, role: 'group',
+      'aria-label': v.title + ', sample data. Use left and right arrow keys to read each week.' });
+
+    // Recessive grid + y labels
+    for (let t = y0; t <= y1 + 1e-9; t += step) {
+      svg.appendChild(svgEl('line', { x1: m.left, x2: m.left + pw, y1: y(t), y2: y(t), stroke: 'var(--d-line)', 'stroke-width': 1 }));
+      const lab = svgEl('text', { x: m.left - 10, y: y(t) + 4, 'text-anchor': 'end' });
+      lab.textContent = v.fmt(t);
+      svg.appendChild(lab);
+    }
+
+    // X labels, thinned to fit
+    const every = Math.ceil(n / Math.max(2, Math.floor(pw / 64)));
+    v.weeks.forEach((w, i) => {
+      if ((n - 1 - i) % every !== 0) return;
+      const lab = svgEl('text', { x: x(i), y: H - 6, 'text-anchor': 'middle' });
+      lab.textContent = w;
+      svg.appendChild(lab);
+    });
+
+    // Target reference line
+    svg.appendChild(svgEl('line', { x1: m.left, x2: m.left + pw, y1: y(v.target), y2: y(v.target),
+      stroke: 'var(--d-text-2)', 'stroke-width': 1, 'stroke-dasharray': '4 4' }));
+    const tl = svgEl('text', { x: m.left + 6, y: y(v.target) - 7 });
+    tl.textContent = v.targetLabel.toUpperCase();
+    tl.setAttribute('letter-spacing', '0.1em');
+    svg.appendChild(tl);
+
+    // Series line
+    const d = v.series.map((val, i) => (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(val).toFixed(1)).join(' ');
+    svg.appendChild(svgEl('path', { d, fill: 'none', stroke: 'var(--d-series)', 'stroke-width': 2,
+      'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
+
+    // Endpoint marker + direct label
+    const li = n - 1;
+    svg.appendChild(svgEl('circle', { cx: x(li), cy: y(v.series[li]), r: 5, fill: 'var(--d-series)', stroke: 'var(--d-card)', 'stroke-width': 2 }));
+    const end = svgEl('text', { x: x(li) + 10, y: y(v.series[li]) + 4 });
+    end.textContent = v.fmt(v.series[li]);
+    end.setAttribute('style', 'fill: var(--d-text); font-weight: 500;');
+    svg.appendChild(end);
+
+    // Hover layer
+    const cross = svgEl('line', { y1: m.top, y2: m.top + ph, stroke: 'var(--d-text-2)', 'stroke-width': 1, opacity: 0 });
+    const dot = svgEl('circle', { r: 5, fill: 'var(--d-series)', stroke: 'var(--d-card)', 'stroke-width': 2, opacity: 0 });
+    const hit = svgEl('rect', { x: m.left - 8, y: m.top, width: pw + 16, height: ph, fill: 'transparent' });
+    svg.append(cross, dot, hit);
+    box.appendChild(svg);
+
+    const tip = el('div', 'dash-tip');
+    tip.setAttribute('aria-hidden', 'true');
+    box.appendChild(tip);
+
+    function show(i) {
+      state.hover = i;
+      const cx = x(i);
+      const cy = y(v.series[i]);
+      cross.setAttribute('x1', cx); cross.setAttribute('x2', cx); cross.setAttribute('opacity', 1);
+      dot.setAttribute('cx', cx); dot.setAttribute('cy', cy); dot.setAttribute('opacity', 1);
+
+      tip.replaceChildren();
+      tip.appendChild(el('strong', null, v.fmt(v.series[i])));
+      const row = el('span');
+      row.appendChild(el('span', 'tip-key'));
+      row.appendChild(document.createTextNode('Week of ' + v.weeks[i] + ' · ' + v.targetLabel.toLowerCase()));
+      tip.appendChild(row);
+      tip.classList.add('is-on');
+      const tw = tip.offsetWidth;
+      const left = cx + 14 + tw > W ? cx - 14 - tw : cx + 14;
+      tip.style.left = left + 'px';
+      tip.style.top = Math.max(0, Math.min(cy - 24, H - tip.offsetHeight)) + 'px';
+    }
+    function hide() {
+      state.hover = null;
+      cross.setAttribute('opacity', 0);
+      dot.setAttribute('opacity', 0);
+      tip.classList.remove('is-on');
+    }
+    const nearest = (px) => Math.max(0, Math.min(n - 1, Math.round(((px - m.left) / pw) * (n - 1))));
+
+    hit.addEventListener('pointermove', (e) => {
+      const r = svg.getBoundingClientRect();
+      show(nearest(e.clientX - r.left));
+    });
+    hit.addEventListener('pointerleave', hide);
+    svg.addEventListener('focus', () => show(state.hover ?? n - 1));
+    svg.addEventListener('blur', hide);
+    svg.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      const cur = state.hover ?? n - 1;
+      show(Math.max(0, Math.min(n - 1, cur + (e.key === 'ArrowRight' ? 1 : -1))));
+    });
+  }
+
+  let view;
+  function render() {
+    view = compute();
+    $('dash-chart-title').textContent = view.title;
+    $('dash-chart-note').textContent = view.note;
+    renderKpis(view);
+    renderChannels(view);
+    renderNotes(view);
+    renderTable(view);
+    state.hover = null;
+    renderChart(view);
+  }
+
+  dash.querySelectorAll('.seg-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.mode ? 'mode' : 'range';
+      state[key] = key === 'mode' ? btn.dataset.mode : Number(btn.dataset.range);
+      btn.parentElement.querySelectorAll('.seg-btn').forEach((b) => {
+        const on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+      render();
+    });
+  });
+
+  render();
+  new ResizeObserver(() => view && renderChart(view)).observe($('dash-chart'));
+})();
